@@ -1,5 +1,35 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.board {
+    margin: auto;
+    position: relative;
+    padding: 10px;
+    cursor: default;
+    box-sizing: border-box;
+    width: 500px;
+    height: 500px;
+}
+
+.board-row {
+    width: 480px;
+    height: 110px;
+    margin: 5px;
+    position: relative;
+    display: block;
+    padding: 1px;
+}
+
+.board-cell {
+    width: 105px;
+    height: 105px;
+    margin: 5px;
+    float: left;
+    font-size: 50px;
+    text-align: center;
+}
+
+.board-cell p {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
