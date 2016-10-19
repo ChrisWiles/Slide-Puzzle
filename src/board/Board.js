@@ -193,7 +193,7 @@ Board.prototype = {
   }
 }
 
-export default Board
+export {Board}
 
 /////////////////////// Test \\\\\\\\\\\\\\\\\\\\\\\\\\
 function BoardTest() {
