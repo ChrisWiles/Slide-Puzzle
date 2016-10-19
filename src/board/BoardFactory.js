@@ -1,15 +1,10 @@
 import Board from './Board'
-import { shuffle } from '../helpers/Helpers'
 
-let NewBoard = (N) => {
-  // just generate a random board
-  let board = new Board(shuffle([ ...Array(N * N).keys() ].map(i => (i + 1) % (N * N))))
+let BoardFactory = function() {}
 
-  // if it's solvable then return the board itself else return it's twin
-  if (!board.isSolvable()) {
-    return board.twin()
-  }
-  return board
+BoardFactory.prototype.getBoard = function () {
+  let b = new Board([14, 13, 5, 3, 0, 1, 8, 12, 6, 2, 4, 10, 11, 9, 15, 7])
+  return b
 }
 
-export default NewBoard
+export default BoardFactory

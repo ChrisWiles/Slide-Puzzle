@@ -1,4 +1,4 @@
-import {inversionCount} from '../helpers/Helpers'
+import {inversionCount} from '../helpers/helpers'
 
 const RIGHT = 0
 const DOWN = 1

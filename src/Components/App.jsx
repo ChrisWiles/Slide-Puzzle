@@ -70,9 +70,14 @@ class App extends Component {
       solutionIndex
     } = this.state
 
+    const LEFT = 37,
+      UP = 38,
+      RIGHT = 39,
+      DOWN = 40,
+      SPACE = 32
+
     if (autosolve) {
-      const SPACE = 32
-      if (e.keyCode === 32 && !won) {
+      if (e.keyCode === SPACE && !won) {
         this.setState({
           board: solution[solutionIndex],
           solutionIndex: solutionIndex + 1,
@@ -80,10 +85,7 @@ class App extends Component {
         })
       }
     } else {
-      const LEFT = 37,
-        UP = 38,
-        RIGHT = 39,
-        DOWN = 40
+
 
       if (e.keyCode === LEFT) {
         board.moveRight()
@@ -111,13 +113,14 @@ class App extends Component {
 
   render() {
     const {count, board, won, autosolve, processing} = this.state
+    console.log(board)
     return (
       <MuiThemeProvider>
       <div>
           <TopBar />
           <br />
           <Counter reset={this.reset} count={count} />
-          <BoardDisplay N={4} board={board.board} />
+          {board.board ? <BoardDisplay N={4} board={board.board} /> : null}
           <BottomFrame won={won}
               activateAI={this.activateAutoSolve}
               autosolve={autosolve}
