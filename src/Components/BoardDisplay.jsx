@@ -25,10 +25,10 @@ class BoardDisplay extends Component {
           )
         }
         else {
-          return (<div className='board-cell' key={element}></div>)
+          return <div className='board-cell' key={element}></div>
         }
       })
-      return (<row className='board-row' key={row}>{rowMarkup}</row>)
+      return <row className='board-row' key={row}>{rowMarkup}</row>
     })
 
     // returning the markup

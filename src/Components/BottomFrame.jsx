@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
+// import RaisedButton from 'material-ui/RaisedButton'
 
 class BottomFrame extends Component {
 
@@ -12,8 +12,8 @@ class BottomFrame extends Component {
     if (!this.props.won) {
       return (
         <div className='centered text-center'>
-          <RaisedButton label='Solve' primary={true} disabled={disabled}
-            onClick={this.props.activateAI.bind(null, true)}/>
+          {/* <RaisedButton label='Solve' primary={true} disabled={disabled}
+            onClick={this.props.activateAI.bind(null, true)}/> */}
         </div>
       )
     } else {

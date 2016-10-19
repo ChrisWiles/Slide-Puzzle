@@ -4,17 +4,15 @@ import Paper from 'material-ui/Paper'
 
 class Counter extends Component {
 
-  render() {
-    return (
-      <div className='misc'>
-        <Paper className='counter' zDepth={1}>
-          <p>Moves: {this.props.count}</p>
-        </Paper>
-        <RaisedButton className='reset-button'
-          onClick={this.props.reset} label='Reset' primary={true}/>
-      </div>
-    )
-  }
+   render() {
+     const {reset, count} = this.props
+      return (
+         <div className='misc'>
+            <RaisedButton className='counter-button' label={`Moves: ${count}`}/>
+            <RaisedButton className='reset-button' onClick={reset} label='Reset' secondary={true}/>
+         </div>
+      )
+   }
 }
 
 export default Counter
