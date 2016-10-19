@@ -1,55 +1,142 @@
-import {equals} from '../helpers/ArrayExtras'
+import {inversionCount} from '../helpers/Helpers'
 
+const RIGHT = 0
+const DOWN = 1
+const LEFT = 2
+const UP = 3
 
 /**
-* The board class represents the state of the board at a given
-* point of time it also contains functions compute the neighbours of the
-* current state, it's twin and hamming and manhattan distance to the goal
-* state.
-*/
-function Board(arr) {
-  this.N = Math.sqrt(arr.length)
-  this.board = arr
-  this._setUpGoal()
-}
+ * The board class represents the state of the board at a given
+ * point of time it also contains functions compute the neighbours of the
+ * current state, it's twin and hamming and manhattan distance to the goal
+ * state.
+ */
+export default class Board {
 
-Board.prototype = {
-  // Sets up the goal state
-  // e.g. [1, 3, 0, 2] -> [1, 2, 3, 0]
-  _setUpGoal() {
-    this.goal = this.board.slice(0)
-    this.goal.sort()
-    this.goal = this.goal.slice(1)
-    this.goal.push(0)
-  },
+  constructor(board) {
+    this.N = Math.sqrt(board.length)
+    this.board = board
+    // tracking index of zero to reduce move operation from O(n) -> O(1)
+    this.zeroIndex = this.board.indexOf(0)
+  }
 
   /**
-  * Calculate the hamming distance to the goal state (i.e. the number
-  * of tiles out of place)
-  * e.g [8, 1, 3, 4, 0, 2, 7, 6, 5] : 5
-  */
+   * Check if the board has reached the final goal state
+   * @return {Boolean} [true if board in final state]
+   */
+  isGoal() {
+    // not and Ideal solution but does reduce the LOC and works perfectly well
+    // in this case.
+    if (this.board[this.board.length - 1] !== 0) {
+      return false
+    }
+    for (let index = 0; index < this.board.length - 1; index += 1) {
+      if (this.board[index] !== index + 1) {
+        return false
+      }
+    }
+    return true
+  }
+
+  equals(that) {
+    for (let index = 0; index < this.board.length; index += 1) {
+      if (this.board[index] !== that.board[index]) {
+        return false
+      }
+    }
+    return true
+  }
+
+  /**
+   * Moves the board in the specified direction why these number it's keycode(arrow key - left arrow key)
+   * left-right, and up-down are inverted so it's more intutive to operate
+   * 0 -> right
+   * 1 -> downward
+   * 2 -> left
+   * 3 -> up
+   *
+   * @param  {[type]} direction [description]
+   * @return {[type]}           [description]
+   */
+  moveOnDirection(direction) {
+    let tile = -1
+    switch (direction) {
+      case RIGHT: { tile = this.zeroIndex + 1; break; }
+      case DOWN: { tile = this.zeroIndex + this.N; break; }
+      case LEFT: { tile = this.zeroIndex - 1; break; }
+      case UP: { tile = this.zeroIndex - this.N; break; }
+      default: { break; }
+    }
+    if (this.makeMove(this.zeroIndex, tile)) {
+      this.zeroIndex = tile;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Makes an appropriate move based on the key
+   * that is passed to it
+   * @param  {number} index [the index of the number that is supposed to move to the locaation of 0]
+   * @return {boolean}     [true if the move is possible and was made]
+   */
+  moveOnIndex(index) {
+    for (let zeroIndex of[1, -1,this.N, -this.N].map(i => index + i)) {
+      if (this.zeroIndex === zeroIndex) {
+        this.makeMove(this.zeroIndex, index)
+        this.zeroIndex = index
+        return true
+      }
+    }
+    return false
+  }
+
+  // AI (A*) Helper methods //
+
+  /**
+   * Finds if the given board is solvable or not in tiem proportional O(n^4)
+   * where n is the size of the board
+   *
+   * @return {[null]} [nothing]
+   */
+  isSolvable() {
+    let zeroIndex = this.board.indexOf(0)
+    let zeroLoc = this.N - Math.floor(zeroIndex / this.N)
+    let inversions = inversionCount(this.board.slice()) - zeroIndex
+
+    if (this.N % 2 === 1) {
+      return inversions % 2 === 0
+    }
+    return zeroLoc % 2 === 1 ? inversions % 2 === 0 : inversions % 2 === 1
+  }
+
+  /**
+   * Calculate the hamming distance to the goal state (i.e. the number
+   * of tiles out of place)
+   * e.g [8, 1, 3, 4, 0, 2, 7, 6, 5] : 5
+   *
+   * @return {number} [the hamming distance from the present board to the goal state]
+   */
   hamming() {
-    let ham = 0
-    for (let i = 0; i < this.board.length; i++)
-      if (this.board[i] !== i + 1)
-        ham += 1
-  // subtract 1 (case of zero)
-    return ham - 1
-  },
+    return this.board.map((x, i) => x !== i + 1).reduce((a, b) => a + b, 0) - 1
+  }
 
   /**
-  * Reutrns the manhattan/taxi-cab distance from current board state to
-  * the goal state. (i.e.) the cumulative distance of every tile to it's
-  * final position
-  * e.g [8, 1, 3, 4, 0, 2, 7, 6, 5] : 10
-  */
+   * Returns the manhattan/taxi-cab distance from current board state to
+   * the goal state. (i.e.) the cumulative distance of every tile to it's
+   * final position
+   * e.g [8, 1, 3, 4, 0, 2, 7, 6, 5] : 10
+   *
+   * @return {number} [the manhattan distance from the present board to the goal state]
+   */
   manhattan() {
     let man = 0
-    for (let i = 0; i < this.board.length; i++) {
-      if (this.board[i]  === 0)
+    for (let i = 0; i < this.board.length; i += 1) {
+      if (this.board[i] === 0) {
         continue
+      }
 
-        // final position of the ith-tile
+      // final position of the ith-tile
       let fy = Math.floor(i / this.N)
       let fx = Math.floor(i % this.N)
 
@@ -61,20 +148,16 @@ Board.prototype = {
       man += Math.abs(ix - fx) + Math.abs(iy - fy)
     }
     return man
-  },
+  }
 
+  // Obselete
   /**
-  * Check if the board has reached the final goal state
-  */
-  isGoal() {
-    return this.board.equals(this.goal)
-  },
-
-  /**
-  * Returns a board that is the copy of the board with two tiles swaped.
-  * (tiles belong to the same row)
-  * One of the original and twin is solvable the other is not.
-  */
+   * Returns a board that is the copy of the board with two tiles swaped.
+   * (tiles belong to the same row)
+   * One of the original and twin is solvable the other is not.
+   *
+   * @return {board} [the twin of the present board]
+   */
   twin() {
     let condition = (this.board[0] !== 0) && (this.board[1] !== 0)
     let x = condition
@@ -84,130 +167,73 @@ Board.prototype = {
       ? 1
       : this.N + 1
 
-    return this._exchBoard(x, y)
-  },
+    return this.exchBoard(x, y)
+  }
 
   /**
-  * Returns the list of all the configurations that are possible after
-  * a single move of the tile.(min 1, max 4)
-  */
+   * Returns the list of all the configurations that are possible after
+   * a single move of the tile.(min 1, max 4)
+   *
+   * @return {[board]} the list of neighbours of the present board
+   */
   neighbours() {
-    let neighbours = []
-    let i = this.board.indexOf(0)
+    let neighbour = []
 
-    if (i > this.N - 1) {
-      neighbours.push(this._exchBoard(i, i - this.N))
-    }
-    if (i % this.N !== 0) {
-      neighbours.push(this._exchBoard(i, i - 1))
-    }
-    if (i < this.board.length - this.N) {
-      neighbours.push(this._exchBoard(i, i + this.N))
-    }
-    if (i % this.N !== this.N - 1) {
-      neighbours.push(this._exchBoard(i, i + 1))
+    // board by exchanging empty tile with the tile above it
+    // include if the empty tile is not in first row
+    if (this.zeroIndex > this.N - 1) {
+      neighbour.push(this.exchBoard(this.zeroIndex, this.zeroIndex - this.N))
     }
 
-    return neighbours
-  },
+    // board by exchanging empty tile with the tile to left it
+    // include if the empty tile is not in first column
+    if (this.zeroIndex % this.N !== 0) {
+      neighbour.push(this.exchBoard(this.zeroIndex, this.zeroIndex - 1))
+    }
 
-  /**
-  * Checks for the equality of the board
-  */
-  equals(that) {
-    return this.board.equals(that.board)
-  },
+    // board by exchanging empty tile with the tile bottom of it
+    // include if the empty tile is not in last row
+    if (this.zeroIndex < this.board.length - this.N) {
+      neighbour.push(this.exchBoard(this.zeroIndex, this.zeroIndex + this.N))
+    }
+
+    // board by exchanging empty tile with the tile to the right of it
+    // include if the empty tile is not in last column
+    if (this.zeroIndex % this.N !== this.N - 1) {
+      neighbour.push(this.exchBoard(this.zeroIndex, this.zeroIndex + 1))
+    }
+
+    return neighbour
+  }
+
+  // Private Helper functions //
 
   // swaps the given tiles of the original board and returns the resulting
   // board
-  _exchBoard(i, j) {
-    let newBoard = new Board(this.board.clone())
+  exchBoard(i, j) {
+    let newBoard = new Board(this.board.slice(0))
 
-    let temp = newBoard.board[i]
-    newBoard.board[i] = newBoard.board[j]
-    newBoard.board[j] = temp
-
-    return newBoard
-  },
+    if (i >= 0 && j >= 0 && i < this.board.length && j < this.board.length) {
+      let temp = newBoard.board[i]
+      newBoard.board[i] = newBoard.board[j]
+      newBoard.board[j] = temp
+      return newBoard
+    }
+    return null
+  }
 
   // private helper to exchange the board tiles
-  _makeMove(i, j) {
-    let temp = this.board[i]
-    this.board[i] = this.board[j]
-    this.board[j] = temp
-  },
-
-  /**
-   * Makes a left move on the board
-   */
-  moveLeft() {
-    let indexZero = this.board.indexOf(0)
-    if (indexZero % this.N !== 0) {
-      this._makeMove(indexZero, indexZero - 1)
+  makeMove(i, j) {
+    // do not make a move for tiles if one is at the edge of a row and another is at the start of the next row
+    if ((Math.min(i, j) % this.N === this.N - 1) && (Math.max(i, j) % this.N === 0)) {
+      return false
     }
-  },
-
-  /**
-   * Makes an upward move on the board
-   */
-  moveUp() {
-    let indexZero = this.board.indexOf(0)
-    if (indexZero > this.N - 1) {
-      this._makeMove(indexZero, indexZero - this.N)
+    if (i >= 0 && j >= 0 && i < this.board.length && j < this.board.length) {
+      let temp = this.board[i]
+      this.board[i] = this.board[j]
+      this.board[j] = temp
+      return true
     }
-  },
-
-  /**
-   * Makes a rightward move on the board
-   */
-  moveRight() {
-    let indexZero = this.board.indexOf(0)
-    if (indexZero % this.N !== this.N - 1) {
-      this._makeMove(indexZero, indexZero + 1)
-    }
-  },
-
-  /**
-   * Makes a downward move on the board
-   */
-  moveDown() {
-    let indexZero = this.board.indexOf(0)
-    if (indexZero < this.board.length - this.N) {
-      this._makeMove(indexZero, indexZero + this.N)
-    }
-  },
-
-  /**
-  * String representaion of the Board object
-  */
-  toString() {
-    let board = ""
-    for (let i = 0; i < this.N; i++) {
-      for (let j = 0; j < this.N; j++) {
-        board += this.board[i * this.N + j]
-        board += ' '
-      }
-      board += '\n'
-    }
-    return board
+    return false
   }
 }
-
-export {Board}
-
-/////////////////////// Test \\\\\\\\\\\\\\\\\\\\\\\\\\
-// function BoardTest() {
-//   console.log('Testing Board')
-//   let b = new Board([8, 1, 3, 4, 0, 2, 7, 6, 5])
-//   console.log(b.toString())
-//   console.log(b.N)                  // 9
-//   console.log(b.goal)               // [1, 2, 3, 4, 5, 6, 7, 8, 0]
-//   console.log(b.isGoal())           // false
-//   console.log(b.hamming())          // 5
-//   console.log(b.manhattan())        // 10
-//   console.log(b.twin().toString())
-//
-//   let fin = new Board([1, 2, 3, 0])
-//   console.log(fin.isGoal())
-//   console.log('End Test')
-// }
