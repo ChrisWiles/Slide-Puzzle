@@ -1,28 +1,15 @@
-import {Board} from './Board'
+import Board from './Board'
+import { shuffle } from '../helpers/Helpers'
 
-let BoardFactory = function() {}
+let NewBoard = (N) => {
+  // just generate a random board
+  let board = new Board(shuffle([ ...Array(N * N).keys() ].map(i => (i + 1) % (N * N))))
 
-BoardFactory.prototype.getBoard = function() {
-  // Maximum number of moves is thus MAX_MOVES + MIN_MOVES
-  let MAX_MOVES = 165
-  let MIN_MOVES = 50
-
-  // Start with a solved board
-  let board = new Board([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0])
-  // generate a random number this will be the number of moves that the
-  // board will make
-  const moves = Math.floor((Math.random() * MAX_MOVES) + MIN_MOVES)
-
-  // randomly choose UP, DOWN, LEFT, RIGHT $(MOVES) number of times
-  for (let i = 1; i < moves; i++) {
-    const n = Math.floor((Math.random() * 4) + 1)
-    if(n === 1) board.moveLeft()
-    if(n === 2) board.moveRight()
-    if(n === 3) board.moveUp()
-    if(n === 4) board.moveDown()
+  // if it's solvable then return the board itself else return it's twin
+  if (!board.isSolvable()) {
+    return board.twin()
   }
-
   return board
 }
 
-export default BoardFactory
+export default NewBoard
