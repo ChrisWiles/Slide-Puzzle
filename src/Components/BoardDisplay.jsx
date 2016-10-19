@@ -6,7 +6,7 @@ class BoardDisplay extends Component {
 
   render() {
 
-    let makeMove = this.props.makeMove
+    // let makeMove = this.props.makeMove
     // conversion of the 1-d array to 2-d
     let oldBoard = this.props.board.slice(0)
     let newBoard = []

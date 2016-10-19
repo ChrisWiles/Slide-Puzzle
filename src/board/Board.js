@@ -1,4 +1,4 @@
-// import {equals} from '../helpers/ArrayExtras'
+import {equals} from '../helpers/ArrayExtras'
 
 
 /**

@@ -18,15 +18,19 @@ class App extends Component {
       won: false,
       autosolve: false
     }
+    this.handleKeyDown = this.handleKeyDown.bind(this)
   }
+
+  // componentWillReceiveProps({keydown}) {
+  //   if ( keydown.event ) {
+  //     // inspect the keydown event and decide what to do
+  //     console.log( keydown.event.which );
+  //   }
+  // }
 
   componentDidMount() {
     this.defaultState()
-    // $(document.body).on('keydown', this.handleKeyDown)
-  }
-
-  componentWillUnmount() {
-    // $(document.body).off('keydown', this.handleKeyDown)
+    document.addEventListener("keydown", this.handleKeyDown)
   }
 
   defaultState() {
@@ -53,6 +57,7 @@ class App extends Component {
       UP = 38,
       RIGHT = 39,
       DOWN = 40
+      console.log(e.keyCode)
 
     if (e.keyCode === LEFT) {
       board.moveRight()
