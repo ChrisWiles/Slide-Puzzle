@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import Paper from 'material-ui/Paper'
 
 // This class handles the button that the app displays
@@ -37,6 +37,11 @@ class BoardDisplay extends Component {
 
       return <div className='board'>{mappedBoard}</div>
    }
+}
+
+BoardDisplay.propTypes = {
+  N: PropTypes.number.isRequired,
+  board: PropTypes.array.isRequired
 }
 
 export default BoardDisplay

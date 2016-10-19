@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
 
@@ -13,6 +13,11 @@ class Counter extends Component {
          </div>
       )
    }
+}
+
+Counter.propTypes = {
+  reset: PropTypes.func.isRequired,
+  count: PropTypes.number.isRequired
 }
 
 export default Counter

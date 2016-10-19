@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 // import RaisedButton from 'material-ui/RaisedButton'
 
 class BottomFrame extends Component {
@@ -22,6 +22,11 @@ class BottomFrame extends Component {
       )
     }
   }
+}
+
+BottomFrame.propTypes = {
+  won: PropTypes.bool.isRequired,
+  autosolve: PropTypes.bool.isRequired
 }
 
 export default BottomFrame
