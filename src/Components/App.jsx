@@ -21,13 +21,6 @@ class App extends Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
-  // componentWillReceiveProps({keydown}) {
-  //   if ( keydown.event ) {
-  //     // inspect the keydown event and decide what to do
-  //     console.log( keydown.event.which );
-  //   }
-  // }
-
   componentDidMount() {
     this.defaultState()
     document.addEventListener("keydown", this.handleKeyDown)
@@ -57,7 +50,8 @@ class App extends Component {
       UP = 38,
       RIGHT = 39,
       DOWN = 40
-      console.log(e.keyCode)
+
+    console.log(e.keyCode)
 
     if (e.keyCode === LEFT) {
       board.moveRight()

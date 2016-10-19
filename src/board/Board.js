@@ -131,7 +131,7 @@ Board.prototype = {
   },
 
   // private helper to exchange the board tiles
-  __makeMove__(i, j) {
+  _makeMove(i, j) {
     let temp = this.board[i]
     this.board[i] = this.board[j]
     this.board[j] = temp
@@ -143,7 +143,7 @@ Board.prototype = {
   moveLeft() {
     let indexZero = this.board.indexOf(0)
     if (indexZero % this.N !== 0) {
-      this.__makeMove__(indexZero, indexZero - 1)
+      this._makeMove(indexZero, indexZero - 1)
     }
   },
 
@@ -153,7 +153,7 @@ Board.prototype = {
   moveUp() {
     let indexZero = this.board.indexOf(0)
     if (indexZero > this.N - 1) {
-      this.__makeMove__(indexZero, indexZero - this.N)
+      this._makeMove(indexZero, indexZero - this.N)
     }
   },
 
@@ -163,7 +163,7 @@ Board.prototype = {
   moveRight() {
     let indexZero = this.board.indexOf(0)
     if (indexZero % this.N !== this.N - 1) {
-      this.__makeMove__(indexZero, indexZero + 1)
+      this._makeMove(indexZero, indexZero + 1)
     }
   },
 
@@ -173,7 +173,7 @@ Board.prototype = {
   moveDown() {
     let indexZero = this.board.indexOf(0)
     if (indexZero < this.board.length - this.N) {
-      this.__makeMove__(indexZero, indexZero + this.N)
+      this._makeMove(indexZero, indexZero + this.N)
     }
   },
 
