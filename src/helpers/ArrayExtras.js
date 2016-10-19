@@ -46,3 +46,5 @@ Array.prototype.clone = function() {
 
 // hide from for-in loops
 Object.defineProperty(Array.prototype, "clone", {enumerable: false})
+
+export default Array.prototype.equals
