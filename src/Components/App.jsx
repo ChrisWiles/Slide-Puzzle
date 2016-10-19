@@ -45,7 +45,8 @@ class App extends Component {
   }
 
   handleKeyDown(e) {
-    if (this.state.autosolve) {
+    let {autosolve, board, count} = this.state
+    if (autosolve) {
       return
     }
     const LEFT = 37,
@@ -54,22 +55,22 @@ class App extends Component {
       DOWN = 40
 
     if (e.keyCode === LEFT) {
-      this.state.board.moveRight()
-      this.state.count += 1
+      board.moveRight()
+      count += 1
     } else if (e.keyCode === UP) {
-      this.state.board.moveDown()
-      this.state.count += 1
+      board.moveDown()
+      count += 1
     } else if (e.keyCode === RIGHT) {
-      this.state.board.moveLeft()
-      this.state.count += 1
+      board.moveLeft()
+      count += 1
     } else if (e.keyCode === DOWN) {
-      this.state.board.moveUp()
-      this.state.count += 1
+      board.moveUp()
+      count += 1
     }
 
-    this.setState({board: this.state.board, count: this.state.count})
+    this.setState({board, count})
 
-    if (this.state.board.isGoal()) {
+    if (board.isGoal()) {
       this.setState({won: true})
     } else {
       this.setState({won: false})
@@ -77,14 +78,15 @@ class App extends Component {
   }
 
   render() {
+    const {count, board, won, autosolve} = this.state
     return (
       <MuiThemeProvider>
         <div>
           <TopBar/>
           <br/>
-          <Counter reset={this.reset} count={this.state.count}/>
-          <BoardDisplay N={4} board={this.state.board.board}/>
-          <BottomFrame won={this.state.won} activateAI={this.activateAutoSolve} autosolve={this.state.autosolve}/>
+          <Counter reset={this.reset} count={count}/>
+          {board.board ? <BoardDisplay N={4} board={board.board}/> : null}
+          <BottomFrame won={won} activateAI={this.activateAutoSolve} autosolve={autosolve}/>
         </div>
       </MuiThemeProvider>
     )
