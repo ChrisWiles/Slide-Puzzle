@@ -1,77 +1,65 @@
-import Board from '../board/Board'
 import SearchNode from './SearchNode'
 import PriorityQueue from '../helpers/PriorityQueue'
 
-function Solver(board) {
-  this.b = board
-  this.solvable = false
-  this.moves = 0
-  this.stack = []
-
-  let sn = new SearchNode(this.b, null)
-  let snt = new SearchNode(this.b.twin(), null)
-
-  let pq = new PriorityQueue()
-  let pqt = new PriorityQueue()
-
-  this._aStar(sn, snt, pq, pqt)
-}
-
-Solver.prototype = {
-  _aStar(sn, snt, pq, pqt) {
-    pq.push(sn, sn.priority)
-    pqt.push(snt, snt.priority)
-
-    while (true) {
-      sn = pq.pop()
-      snt = pqt.pop()
-
-      if (sn.board.isGoal()) {
-        this.moves = sn.moves
-        this.solvable = true
-        break
-      }
-
-      if (snt.board.isGoal())
-        break
-
-      this._addNeighbours(sn, pq)
-      this._addNeighbours(snt, pqt)
+// adds neighbouring boards of a given search-node to the priority-queue
+// that is passed.
+const addNeighbours = (searchNode, priorityQueue) => {
+  for (let board of searchNode.board.neighbours()) {
+    let n = new SearchNode(board, searchNode)
+    if (searchNode.prev === null || !n.board.equals(searchNode.prev.board)) {
+      priorityQueue.push(n, n.priority)
     }
-
-    if (this.solvable) {
-      while (sn != null) {
-        this.stack.push(sn.board)
-        sn = sn.prev
-      }
-    }
-  },
-
-  _addNeighbours(sn, pq) {
-    let neighbours = sn.board.neighbours()
-
-    for (let i = 0; i < neighbours.length; i++) {
-      let board = neighbours[i]
-      let n = new SearchNode(board, sn)
-      if (sn.prev == null || !n.board.equals(sn.prev.board))
-        pq.push(n, n.priority)
-    }
-  },
-
-  solution() {
-    this.stack.reverse()
-    return this.stack
   }
 }
 
-function SolverTest() {
-    let board = new Board([14, 13, 5, 3, 0, 1, 8, 12, 6, 2, 4, 10, 11, 9, 15, 7])
-    let solver = new Solver(board)
+/**
+ * This is the method that implements the ever popular A* Search. The heuristic
+ * that I am using here is the manhattan distance with the current number of
+ * moves. The lower the number the more likly is the node next up for exploration.
+ *
+ * @param  {[type]} board [the board for which solution is required]
+ * @return {[type]}    [ an array of boards that lead to solution (in reverse order) ]
+ */
+const aStar = (board) => {
+  // starting point for the solution of the actual board
+  let searchNode = new SearchNode(board, null)
+  // priority queue for the actual board
+  let pq = new PriorityQueue()
+  let solution = []
 
-    console.log("The solution for the problem is in " + solver.solution().length)
-    let solution = solver.solution()
-    for (let i = 0; i < solution.length; i++)
-        console.log(solution[i].toString())
+  pq.push(searchNode, searchNode.priority)
+
+  while (!searchNode.board.isGoal()) {
+    // pop both the queues to get the next highest priority board
+    searchNode = pq.pop()
+
+    // add neighbours to the priority queue
+    addNeighbours(searchNode, pq)
+  }
+
+  // if a solution exists retrace it (check docs of search node)
+  // achieved by maintaing a pointer to the board that lead to the
+  // current board
+  while (searchNode !== null) {
+    // push: O*(1), unshift: O(n)
+    solution.push(searchNode.board)
+    searchNode = searchNode.prev
+  }
+  return solution
 }
 
-export {Solver}
+/**
+ * This is just a wrapper function around the one that does the A* search.
+ * @param  {[array]} board [the bord object for which the solver is generated]
+ *
+ * @return {[object]}       [array of boards leading to solution]
+ */
+const SolutionTo = (board) => {
+  let stack = board.isSolvable ? aStar(board) : []
+
+  // Why not directly use unshift? effeciency
+  stack.reverse()
+  return stack
+}
+
+export default SolutionTo
