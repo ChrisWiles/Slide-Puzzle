@@ -111,6 +111,7 @@ PriorityQueue.prototype = {
 
 ///////////////////   Tests    /////////////////////////////
 function pqTest() {
+    console.log('Testing the priority queue')
     let queue = new PriorityQueue()
 
     queue.push({p:'two'}, 2)
@@ -138,4 +139,5 @@ function pqTest() {
     console.log(queue.pop())            // => {p:'five'}
     console.log(queue.pop())            // => {p:'Nine'}
     console.log(queue.heap.toString())  // =>
+    console.log('End Test')
 }
