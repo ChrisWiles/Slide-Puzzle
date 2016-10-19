@@ -1,4 +1,4 @@
-import {equals} from '../helpers/ArrayExtras'
+// import {equals} from '../helpers/ArrayExtras'
 
 
 /**
@@ -31,7 +31,7 @@ Board.prototype = {
   hamming() {
     let ham = 0
     for (let i = 0; i < this.board.length; i++)
-      if (this.board[i] != i + 1)
+      if (this.board[i] !== i + 1)
         ham += 1
   // subtract 1 (case of zero)
     return ham - 1
@@ -46,7 +46,7 @@ Board.prototype = {
   manhattan() {
     let man = 0
     for (let i = 0; i < this.board.length; i++) {
-      if (this.board[i] == 0)
+      if (this.board[i]  === 0)
         continue
 
         // final position of the ith-tile
@@ -76,7 +76,7 @@ Board.prototype = {
   * One of the original and twin is solvable the other is not.
   */
   twin() {
-    let condition = (this.board[0] != 0) && (this.board[1] != 0)
+    let condition = (this.board[0] !== 0) && (this.board[1] !== 0)
     let x = condition
       ? 0
       : this.N
@@ -98,13 +98,13 @@ Board.prototype = {
     if (i > this.N - 1) {
       neighbours.push(this._exchBoard(i, i - this.N))
     }
-    if (i % this.N != 0) {
+    if (i % this.N !== 0) {
       neighbours.push(this._exchBoard(i, i - 1))
     }
     if (i < this.board.length - this.N) {
       neighbours.push(this._exchBoard(i, i + this.N))
     }
-    if (i % this.N != this.N - 1) {
+    if (i % this.N !== this.N - 1) {
       neighbours.push(this._exchBoard(i, i + 1))
     }
 
@@ -142,7 +142,7 @@ Board.prototype = {
    */
   moveLeft() {
     let indexZero = this.board.indexOf(0)
-    if (indexZero % this.N != 0) {
+    if (indexZero % this.N !== 0) {
       this.__makeMove__(indexZero, indexZero - 1)
     }
   },
@@ -162,7 +162,7 @@ Board.prototype = {
    */
   moveRight() {
     let indexZero = this.board.indexOf(0)
-    if (indexZero % this.N != this.N - 1) {
+    if (indexZero % this.N !== this.N - 1) {
       this.__makeMove__(indexZero, indexZero + 1)
     }
   },
@@ -196,18 +196,18 @@ Board.prototype = {
 export {Board}
 
 /////////////////////// Test \\\\\\\\\\\\\\\\\\\\\\\\\\
-function BoardTest() {
-  console.log('Testing Board')
-  let b = new Board([8, 1, 3, 4, 0, 2, 7, 6, 5])
-  console.log(b.toString())
-  console.log(b.N)                  // 9
-  console.log(b.goal)               // [1, 2, 3, 4, 5, 6, 7, 8, 0]
-  console.log(b.isGoal())           // false
-  console.log(b.hamming())          // 5
-  console.log(b.manhattan())        // 10
-  console.log(b.twin().toString())
-
-  let fin = new Board([1, 2, 3, 0])
-  console.log(fin.isGoal())
-  console.log('End Test')
-}
+// function BoardTest() {
+//   console.log('Testing Board')
+//   let b = new Board([8, 1, 3, 4, 0, 2, 7, 6, 5])
+//   console.log(b.toString())
+//   console.log(b.N)                  // 9
+//   console.log(b.goal)               // [1, 2, 3, 4, 5, 6, 7, 8, 0]
+//   console.log(b.isGoal())           // false
+//   console.log(b.hamming())          // 5
+//   console.log(b.manhattan())        // 10
+//   console.log(b.twin().toString())
+//
+//   let fin = new Board([1, 2, 3, 0])
+//   console.log(fin.isGoal())
+//   console.log('End Test')
+// }

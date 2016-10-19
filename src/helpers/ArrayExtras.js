@@ -1,4 +1,3 @@
-"use strict"
 
 // Defining array.equals
 // Warn if overriding existing method
@@ -13,7 +12,7 @@ Array.prototype.equals = function(array) {
     return false
 
     // compare lengths - can save a lot of time
-  if (this.length != array.length)
+  if (this.length !== array.length)
     return false
 
   for (let i = 0, l = this.length; i < l; i++) {
@@ -22,8 +21,8 @@ Array.prototype.equals = function(array) {
       // recurse into the nested arrays
       if (!this[i].equals(array[i]))
         return false
-    } else if (this[i] != array[i]) {
-      // Warning - two different object instances will never be equal: {x:20} != {x:20}
+    } else if (this[i] !== array[i]) {
+      // Warning - two different object instances will never be equal: {x:20} !== {x:20}
       return false
     }
   }
