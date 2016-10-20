@@ -22,7 +22,6 @@ class TopBar extends Component {
       value: 2,
       time: ''
     }
-    this.tick = this.tick.bind(this)
   }
 
   componentDidMount() {
@@ -31,15 +30,16 @@ class TopBar extends Component {
 
   }
 
-  tick() {
-    this.setState({time: timer.time()})
-  }
+  tick = () => this.setState({time: timer.time()})
+
+
 
   handleReset = () => {
     timer.reset()
     timer.start()
     this.props.reset()
   }
+  
   handleChange = (event, index, value) => this.setState({value})
 
   render() {
