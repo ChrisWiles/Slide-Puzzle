@@ -54,7 +54,7 @@ export default class PriorityQueue {
     // get the value of the top element
     let topVal = this.heap[1].data
 
-    // pop the last element and put it on the top then __sink__ it down hence
+    // pop the last element and put it on the top then sink it down hence
     //  maintaining the heap invarient.
     if (this.heap.length > 2) {
       this.heap[1] = this.heap.pop()
@@ -62,7 +62,7 @@ export default class PriorityQueue {
       this.heap.pop()
     }
 
-    this.__sink__(1)
+    this.sink(1)
     return topVal
   }
 
@@ -78,7 +78,7 @@ export default class PriorityQueue {
   }
 
   // Sinks a low priority element down to it's place until the heap invarient is restored.
-  __sink__(node) {
+  sink(node) {
     let i = node
     // while ith node has a child
     while (i * 2 < this.heap.length) {

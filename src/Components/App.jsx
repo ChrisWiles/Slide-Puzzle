@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import TopBar from './TopBar'
 import BoardDisplay from './BoardDisplay'
@@ -49,14 +48,12 @@ class App extends Component {
   render() {
     const {count, board, isWin} = this.state
     return (
-      <MuiThemeProvider>
-        <div>
-          <TopBar reset={this.reset} count={count}/>
-          <br/>
-          {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
-          <SnackbarYouWon isWin={isWin}/>
-        </div>
-      </MuiThemeProvider>
+      <div>
+        <TopBar reset={this.reset} count={count}/>
+        <br/>
+        {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
+        <SnackbarYouWon isWin={isWin}/>
+      </div>
     )
   }
 }
