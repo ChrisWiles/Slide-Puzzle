@@ -15,9 +15,9 @@ See Live [Slider-Puzzle](https://slider-puzzle.herokuapp.com/)
 
 Slider-Puzzle uses a number of open source projects to work properly:
 
-* [ReactJS] - open-source JavaScript library providing a view for data rendered as HTML
-* [Heroku] - Create, deploy, and manage apps in the cloud
-* [Material-UI] - Google's material design UI components built with React.
+* [React](https://facebook.github.io/react/docs/getting-started.html) - Open-source JavaScript library providing a view for data rendered as HTML
+* [Heroku](https://devcenter.heroku.com/categories/reference) - Create, deploy, and manage apps in the cloud
+* [Material UI](http://www.material-ui.com/) - Google's material design UI components built with React.
 
 ### Installation
 
@@ -33,7 +33,7 @@ $ npm run
 ### Todos
  - Write Tests
  - Add Code Comments
- - Add online play
  - User score board
- - fix click to move
- - add multi board sizes
+ - Mouse control
+ - Add multi board sizes
+ - Add Dark Theme
