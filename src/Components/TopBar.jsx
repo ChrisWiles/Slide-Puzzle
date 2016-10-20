@@ -8,22 +8,42 @@ import MenuItem from 'material-ui/MenuItem'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
+import StopWatch from '../helpers/StopWatch'
 
 const boldFont = {fontWeight: 600}
+const timer = new StopWatch()
 
 class TopBar extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       value: 2,
+      time: ''
     }
+    this.tick = this.tick.bind(this)
   }
 
+  componentDidMount() {
+    timer.start()
+    setInterval(this.tick, 49)
+
+  }
+
+  tick() {
+    this.setState({time: timer.time()})
+  }
+
+  handleReset = () => {
+    timer.reset()
+    timer.start()
+    this.props.reset()
+  }
   handleChange = (event, index, value) => this.setState({value})
 
   render() {
-    const {reset, count} = this.props
+    const {count} = this.props
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
@@ -35,11 +55,12 @@ class TopBar extends Component {
             <MenuItem value={5} primaryText="35-Puzzle" style={boldFont} />
           </DropDownMenu>
         </ToolbarGroup>
+        <ToolbarTitle text={`Time: ${this.state.time}`} style={{fontWeight: 600, color: 'none'}} />
         <ToolbarGroup>
           <ToolbarTitle text={`Moves: ${count}`} style={{fontWeight: 600, color: 'none'}} />
           <FontIcon className="muidocs-icon-custom-sort" />
           <ToolbarSeparator />
-          <RaisedButton label="Reset Game" secondary={true} onClick={reset}/>
+          <RaisedButton label="New Game" secondary={true} onClick={this.handleReset}/>
           <IconMenu
             iconButtonElement={
               <IconButton touch={true}>
