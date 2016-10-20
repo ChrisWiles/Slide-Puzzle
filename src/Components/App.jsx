@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 
 import TopBar from './TopBar'
 import BoardDisplay from './BoardDisplay'
-import SnackbarYouWon from './SnackbarYouWon'
-import Snackbar from 'material-ui/Snackbar'
+import SnackBarMsg from './SnackBarMsg'
 
 import NewBoard from '../board/NewBoard'
 
@@ -53,13 +52,7 @@ class App extends Component {
         <TopBar reset={this.reset} count={count}/>
         <br/>
         {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
-        <SnackbarYouWon isWin={isWin}/>
-        <Snackbar
-          contentStyle={{fontSize: "25px"}}
-          open={true}
-          message="Use arrow keys to move"
-          autoHideDuration={10000}
-        />
+        <SnackBarMsg isWin={isWin}/>
       </div>
     )
   }
