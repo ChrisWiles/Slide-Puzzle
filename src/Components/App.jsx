@@ -3,11 +3,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import TopBar from './TopBar'
 import BoardDisplay from './BoardDisplay'
-import Counter from './Counter'
-import BottomFrame from './BottomFrame'
+import SnackbarYouWon from './SnackbarYouWon'
 
 import BoardFactory from '../board/BoardFactory'
-import Solver from '../AI/Solver'
 
 class App extends Component {
   constructor(props) {
@@ -16,16 +14,8 @@ class App extends Component {
     this.state = {
       board: [],
       count: 0,
-      won: false,
-      autosolve: false,
-      solution: null,
-      solutionIndex: 1,
-      processing: false
+      isWin: false
     }
-
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.reset = this.reset.bind(this)
-    this.activateAutoSolve = this.activateAutoSolve.bind(this)
   }
 
   componentDidMount() {
@@ -34,67 +24,37 @@ class App extends Component {
   }
 
   defaultState() {
-    const bf = new BoardFactory()
-    const board = bf.getBoard()
     this.setState({
-      board,
+      board: new BoardFactory().getBoard(),
       count: 0,
-      won: false,
-      autosolve: false,
-      solution: null,
-      solutionIndex: 1,
-      processing: false
+      isWin: false
     })
   }
 
-  reset() {
-    this.replaceState(this.defaultState())
-  }
+  reset = () => this.defaultState()
 
-  activateAutoSolve() {
-    this.setState({autosolve: true, processing: true})
-    this.forceUpdate()
-    const solver = new Solver(this.state.board)
+  handleKeyDown = (e) => {
+    const {board, count} = this.state
 
-    this.setState({solution: solver.solution(), processing: false})
-  }
+    const moved = board.moveOnDirection(e.keyCode - 37)
 
-  handleKeyDown(e) {
-    let {
-      autosolve,
-      board,
-      count,
-      won,
-      solution,
-      solutionIndex
-    } = this.state
-
-    let moved = this.state.board.moveOnDirection(e.keyCode - 37)
-
-    this.setState({
-      board: board,
-      count: count + (moved ? 1 : 0)
-    })
+    this.setState({count: count + (moved ? 1 : 0)})
 
     if (board.isGoal()) {
-      this.setState({won: true})
-    } else {
-      this.setState({won: false})
+      this.setState({isWin: true})
     }
+    this.setState({isWin: false})
   }
 
   render() {
-    const {count, board, won, autosolve, processing} = this.state
-    console.log(board)
+    const {count, board, isWin} = this.state
     return (
       <MuiThemeProvider>
         <div>
-          <TopBar/>
+          <TopBar reset={this.reset} count={count}/>
           <br/>
-          <Counter reset={this.reset} count={count}/> {board.board
-            ? <BoardDisplay N={4} board={board.board}/>
-            : null}
-          <BottomFrame won={won} activateAI={this.activateAutoSolve} autosolve={autosolve} processing={processing}/>
+          {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
+          <SnackbarYouWon isWin={isWin}/>
         </div>
       </MuiThemeProvider>
     )

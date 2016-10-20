@@ -5,11 +5,12 @@ import Paper from 'material-ui/Paper'
 class BoardDisplay extends Component {
 
   mapBoard(board) {
+    // generating the markup for the 2-d array
     return board.map(row => {
        let rowMarkup = row.map(element => {
           if (element !== 0) {
              return (
-                <Paper zDepth={1} className='board-cell' key={element}>
+                <Paper zDepth={2} className='board-cell' key={element}>
                    <p>{element}</p>
                 </Paper>
              )
@@ -22,25 +23,24 @@ class BoardDisplay extends Component {
   }
 
    render() {
-      const {N, board} = this.props
+      const {numRows, board} = this.props
 
       // conversion of the 1-d array to 2-d
       let oldBoard = board.slice(0)
       const newBoard = []
 
       while (oldBoard.length) {
-         newBoard.push(oldBoard.splice(0, N))
+         newBoard.push(oldBoard.splice(0, numRows))
       }
 
       const mappedBoard = this.mapBoard(newBoard)
-      // generating the markup for the 2-d array
 
       return <div className='board'>{mappedBoard}</div>
    }
 }
 
 BoardDisplay.propTypes = {
-  N: PropTypes.number.isRequired,
+  numRows: PropTypes.number.isRequired,
   board: PropTypes.array.isRequired
 }
 
