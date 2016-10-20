@@ -6,15 +6,15 @@ class BoardDisplay extends Component {
   mapBoard(board) {
     // generating the markup for the 2-d array
     return board.map(row => {
-       let rowMarkup = row.map(element => {
+       let rowMarkup = row.map((element, i) => {
           if (element !== 0) {
              return (
-                <Paper zDepth={2} className='board-cell' key={element}>
+                <Paper zDepth={2} className='board-cell' key={i}>
                    <p>{element}</p>
                 </Paper>
              )
           } else {
-             return <div className='board-cell' key={element}></div>
+             return <div className='board-cell' key={i}></div>
           }
        })
        return <row className='board-row' key={row}>{rowMarkup}</row>

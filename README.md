@@ -35,3 +35,5 @@ $ npm run
  - Add Code Comments
  - Add online play
  - User score board
+ - fix click to move
+ - add multi board sizes
