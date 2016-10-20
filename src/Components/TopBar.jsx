@@ -15,7 +15,7 @@ class TopBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: 3,
+      value: 2,
     }
   }
 
@@ -27,13 +27,11 @@ class TopBar extends Component {
       <Toolbar>
         <ToolbarGroup firstChild={true}>
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="All Broadcasts" />
-            <MenuItem value={2} primaryText="All Voice" />
-            <MenuItem value={3} primaryText="8-Puzzle" />
-            <MenuItem value={4} primaryText="Complete Voice" />
-            <MenuItem value={5} primaryText="Complete Text" />
-            <MenuItem value={6} primaryText="Active Voice" />
-            <MenuItem value={7} primaryText="Active Text" />
+            <MenuItem value={1} primaryText="3-Puzzle" />
+            <MenuItem value={2} primaryText="8-Puzzle" />
+            <MenuItem value={3} primaryText="15-Puzzle" />
+            <MenuItem value={4} primaryText="24-Puzzle" />
+            <MenuItem value={5} primaryText="35-Puzzle" />
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarGroup>
