@@ -5,7 +5,7 @@ import TopBar from './TopBar'
 import BoardDisplay from './BoardDisplay'
 import SnackbarYouWon from './SnackbarYouWon'
 
-import BoardFactory from '../board/BoardFactory'
+import NewBoard from '../board/NewBoard'
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class App extends Component {
 
   defaultState() {
     this.setState({
-      board: new BoardFactory().getBoard(),
+      board: NewBoard(15),
       count: 0,
       isWin: false
     })

@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Paper from 'material-ui/Paper'
 
-// This class handles the button that the app displays
 class BoardDisplay extends Component {
 
   mapBoard(board) {

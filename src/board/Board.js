@@ -150,26 +150,6 @@ export default class Board {
     return man
   }
 
-  // Obselete
-  /**
-   * Returns a board that is the copy of the board with two tiles swaped.
-   * (tiles belong to the same row)
-   * One of the original and twin is solvable the other is not.
-   *
-   * @return {board} [the twin of the present board]
-   */
-  twin() {
-    let condition = (this.board[0] !== 0) && (this.board[1] !== 0)
-    let x = condition
-      ? 0
-      : this.N
-    let y = condition
-      ? 1
-      : this.N + 1
-
-    return this.exchBoard(x, y)
-  }
-
   /**
    * Returns the list of all the configurations that are possible after
    * a single move of the tile.(min 1, max 4)
