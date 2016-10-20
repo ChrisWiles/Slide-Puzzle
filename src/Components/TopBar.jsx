@@ -27,8 +27,15 @@ class TopBar extends Component {
   componentDidMount() {
     timer.start()
     setInterval(this.tick, 49)
-
   }
+
+  componentWillReceiveProps({isWin}) {
+    if(isWin) {
+      timer.stop()
+      // winningTime(timer.time())
+    }
+  }
+
 
   tick = () => this.setState({time: timer.time()})
 
@@ -39,7 +46,7 @@ class TopBar extends Component {
     timer.start()
     this.props.reset()
   }
-  
+
   handleChange = (event, index, value) => this.setState({value})
 
   render() {

@@ -49,7 +49,7 @@ class App extends Component {
     const {count, board, isWin} = this.state
     return (
       <div>
-        <TopBar reset={this.reset} count={count}/>
+        <TopBar reset={this.reset} count={count} isWin={isWin}/>
         <br/>
         {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
         <SnackBarMsg isWin={isWin}/>
