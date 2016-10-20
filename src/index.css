@@ -1,3 +1,8 @@
+body {
+    margin: 0px;
+    background-color: #FAFAFA;
+}
+
 .board {
     margin: auto;
     position: relative;
@@ -11,7 +16,7 @@
 .board-row {
     width: 480px;
     height: 110px;
-    margin: 5px;
+    margin: 0px;
     position: relative;
     display: block;
     padding: 1px;
@@ -20,7 +25,7 @@
 .board-cell {
     width: 105px;
     height: 105px;
-    margin: 5px;
+    margin: 3.2px;
     float: left;
     font-size: 30px;
     text-align: center;
@@ -28,7 +33,7 @@
 
 .board-cell p {
     position: relative;
-    top: 50%;
+    top: 24%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
@@ -60,7 +65,14 @@
     padding-right: 25px;
 }
 
+.counter-button {
+    float: left;
+    position: relative;
+    margin-left: -24px;
+}
+
 .reset-button {
-    margin-left: auto;
-    margin-right: 0px;
+    float: right;
+    position: relative;
+    margin-right: -24px;
 }

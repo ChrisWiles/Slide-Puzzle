@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import AppBar from 'material-ui/AppBar'
 
 class TopBar extends Component {
