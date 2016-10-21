@@ -32,10 +32,7 @@ class App extends Component {
     })
   }
 
-
-  changeGame = (N) => this.reset(N)
-
-  reset = (N) => this.defaultState(N)
+  changeGame = (N) => this.defaultState(N)
 
   handleKeyDown = (e) => {
     const {board, count} = this.state
@@ -54,7 +51,7 @@ class App extends Component {
     const {count, board, isWin, N} = this.state
     return (
       <div>
-        <TopBar reset={this.reset} count={count} isWin={isWin} changeGame={this.changeGame}/>
+        <TopBar count={count} isWin={isWin} changeGame={this.changeGame}/>
         <br/>
         {board.board ? <BoardDisplay numRows={Math.round(Math.sqrt(N))} board={board.board}/> : null}
         <SnackBarMsg isWin={isWin}/>

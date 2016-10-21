@@ -19,7 +19,7 @@ class TopBar extends Component {
     super(props)
 
     this.state = {
-      value: 15,
+      K: 15,
       time: ''
     }
   }
@@ -41,25 +41,25 @@ class TopBar extends Component {
 
 
 
-  handleReset = () => {
+  handleNewGame = (event, K) => {
     timer.reset()
     timer.start()
-    this.props.reset()
+    this.props.changeGame(K || this.state.K)
   }
 
-  handleChange = (event, index, value) => {
-    this.setState({value})
-    this.props.changeGame(value)
+  handleChange = (event, index, K) => {
+    this.setState({K})
+    this.handleNewGame(null, K)
   }
 
   render() {
     const {count} = this.props
-    const {value, time} = this.state
-    const values = [3, 8, 15, 24, 35]
+    const {K, time} = this.state
+    const values = [3, 8, 15, 24, 35, 48]
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
-          <DropDownMenu value={value} onChange={this.handleChange} style={boldFont} >
+          <DropDownMenu value={K} onChange={this.handleChange} style={boldFont} >
             {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={boldFont}/>)}
           </DropDownMenu>
         </ToolbarGroup>
@@ -68,7 +68,7 @@ class TopBar extends Component {
           <ToolbarTitle text={`Moves: ${count}`} style={{fontWeight: 600, color: 'none'}} />
           <FontIcon className="muidocs-icon-custom-sort" />
           <ToolbarSeparator />
-          <RaisedButton label="New Game" secondary={true} onClick={this.handleReset}/>
+          <RaisedButton label="New Game" secondary={true} onClick={this.handleNewGame}/>
           <IconMenu
             iconButtonElement={
               <IconButton touch={true}>
@@ -86,7 +86,6 @@ class TopBar extends Component {
 }
 
 TopBar.propTypes = {
-  reset: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
   changeGame: PropTypes.func.isRequired
 }
