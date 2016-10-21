@@ -3,35 +3,49 @@ import Paper from 'material-ui/Paper'
 
 class BoardDisplay extends Component {
 
-  mapBoard(board) {
-    // generating the markup for the 2-d array
-    return board.map(row => {
-      let rowMarkup = row.map((element, i) => {
-        if (element !== 0) {
-          return (
-            <Paper zDepth={2} className='board-cell' key={i}>
-              <p>{element}</p>
-            </Paper>
-          )
-        } else {
-          return <div className='board-cell' key={i}></div>
-        }
-      })
-      return <row className='board-row' key={row}>{rowMarkup}</row>
+  mapRow(row) {
+    return row.map((element, i) => {
+      if (element !== 0) {
+        return (
+          <Paper zDepth={2} className='board-cell' key={i}>
+            <p>{element}</p>
+          </Paper>
+        )
+      } else {
+        return <div className='board-cell' key={i}/>
+      }
     })
   }
 
-  render() {
-    const {numRows, board} = this.props
+  mapBoard(board) {
+    // generating the markup for the 2-d array
+    return board.map(row => {
+      return (
+        <row className='board-row' key={row}>
+          {this.mapRow(row)}
+        </row>
+      )
+    })
+  }
 
-    // conversion of the 1-d array to 2-d
+  arrayTransform(numRows, board) {
+    // 1-d array to 2-d
+
     let oldBoard = board.slice(0)
     const newBoard = []
 
     while (oldBoard.length) {
       newBoard.push(oldBoard.splice(0, numRows))
     }
-    const mappedBoard = this.mapBoard(newBoard)
+
+    return newBoard
+  }
+
+  render() {
+    const {numRows, board} = this.props
+
+    const array2d = this.arrayTransform(numRows, board)
+    const mappedBoard = this.mapBoard(array2d)
 
     return (
       <div className="row center-xs">
