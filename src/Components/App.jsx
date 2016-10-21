@@ -54,13 +54,13 @@ class App extends Component {
   }
 
   render() {
-    const {count, board, isWin} = this.state
-    console.log(this.state.N)
+    const {count, board, isWin, N} = this.state
+    console.log(N)
     return (
       <div>
         <TopBar reset={this.reset} count={count} isWin={isWin} changeGame={this.changeGame}/>
         <br/>
-        {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
+        {board.board ? <BoardDisplay numRows={Math.round(Math.sqrt(N))} board={board.board}/> : null}
         <SnackBarMsg isWin={isWin}/>
       </div>
     )

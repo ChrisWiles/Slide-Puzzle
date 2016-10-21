@@ -1,42 +1,48 @@
 import React, {Component, PropTypes} from 'react'
 import Paper from 'material-ui/Paper'
 
-
 class BoardDisplay extends Component {
 
   mapBoard(board) {
     // generating the markup for the 2-d array
     return board.map(row => {
-       let rowMarkup = row.map((element, i) => {
-          if (element !== 0) {
-             return (
-                <Paper zDepth={2} className='board-cell' key={i}>
-                   <p>{element}</p>
-                </Paper>
-             )
-          } else {
-             return <div className='board-cell' key={i}></div>
-          }
-       })
-       return <row className='board-row' key={row}>{rowMarkup}</row>
+      let rowMarkup = row.map((element, i) => {
+        if (element !== 0) {
+          return (
+            <Paper zDepth={2} className='board-cell' key={i}>
+              <p>{element}</p>
+            </Paper>
+          )
+        } else {
+          return <div className='board-cell' key={i}></div>
+        }
+      })
+      return <row className='board-row' key={row}>{rowMarkup}</row>
     })
   }
 
-   render() {
-      const {numRows, board} = this.props
+  render() {
+    const {numRows, board} = this.props
 
-      // conversion of the 1-d array to 2-d
-      let oldBoard = board.slice(0)
-      const newBoard = []
+    // conversion of the 1-d array to 2-d
+    let oldBoard = board.slice(0)
+    const newBoard = []
 
-      while (oldBoard.length) {
-         newBoard.push(oldBoard.splice(0, numRows))
-      }
+    while (oldBoard.length) {
+      newBoard.push(oldBoard.splice(0, numRows))
+    }
+    const mappedBoard = this.mapBoard(newBoard)
 
-      const mappedBoard = this.mapBoard(newBoard)
-
-      return <div className='board'>{mappedBoard}</div>
-   }
+    return (
+      <div className="row center-xs">
+        <div className="col-xs-12">
+          <div className="box">
+            {mappedBoard}
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 BoardDisplay.propTypes = {

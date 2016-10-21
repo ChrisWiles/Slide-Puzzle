@@ -3,21 +3,7 @@ body {
     background-color: #FAFAFA;
 }
 
-.board {
-    margin: auto;
-    position: relative;
-    padding: 10px;
-    cursor: default;
-    box-sizing: border-box;
-    width: 500px;
-    height: 500px;
-}
-
 .board-row {
-    width: 480px;
-    height: 110px;
-    margin: 0px;
-    position: relative;
     display: block;
     padding: 1px;
 }
@@ -28,7 +14,6 @@ body {
     margin: 3.2px;
     float: left;
     font-size: 30px;
-    text-align: center;
 }
 
 .board-cell p {
@@ -37,42 +22,4 @@ body {
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-}
-
-.counter {
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
-    text-align: center;
-    margin-left: 0px;
-    margin-right: 200px;
-    position: relative;
-    display: inline-block;
-}
-
-.counter p {
-    position: relative;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-
-.misc {
-    width: 500px;
-    height: 50px;
-    margin: auto;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-.counter-button {
-    float: left;
-    position: relative;
-    margin-left: -24px;
-}
-
-.reset-button {
-    float: right;
-    position: relative;
-    margin-right: -24px;
 }
