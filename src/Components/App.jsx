@@ -19,26 +19,23 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.defaultState()
+    this.defaultState(this.state.N)
     document.addEventListener("keydown", this.handleKeyDown)
   }
 
-  defaultState() {
+  defaultState(N) {
     this.setState({
-      board: NewBoard(this.state.N),
+      N,
+      board: NewBoard(N),
       count: 0,
-      isWin: false
+      isWin: false,
     })
-     this.forceUpdate()
   }
 
 
-  changeGame = (N) => {
-    this.setState({N})
-    this.reset()
-  }
+  changeGame = (N) => this.reset(N)
 
-  reset = () => this.defaultState()
+  reset = (N) => this.defaultState(N)
 
   handleKeyDown = (e) => {
     const {board, count} = this.state
@@ -55,7 +52,6 @@ class App extends Component {
 
   render() {
     const {count, board, isWin, N} = this.state
-    console.log(N)
     return (
       <div>
         <TopBar reset={this.reset} count={count} isWin={isWin} changeGame={this.changeGame}/>
