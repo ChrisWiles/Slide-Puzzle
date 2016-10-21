@@ -21,7 +21,7 @@ class SnackBarMsg extends Component {
   handleRequestClose = () => this.setState({open: false})
 
   render() {
-    const {open, msg, autoHideDuration, isWin} = this.state
+    const {open, msg, autoHideDuration} = this.state
     return (
         <Snackbar
           contentStyle={{fontSize: "24px"}}

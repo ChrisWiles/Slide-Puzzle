@@ -19,7 +19,7 @@ class TopBar extends Component {
     super(props)
 
     this.state = {
-      value: 2,
+      value: 15,
       time: ''
     }
   }
@@ -47,22 +47,26 @@ class TopBar extends Component {
     this.props.reset()
   }
 
-  handleChange = (event, index, value) => this.setState({value})
+  handleChange = (event, index, value) => {
+    this.setState({value})
+    this.props.getN(value)
+  }
 
   render() {
     const {count} = this.props
+    const {value, time} = this.state
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
-          <DropDownMenu value={this.state.value} onChange={this.handleChange} style={boldFont} >
-            <MenuItem value={1} primaryText="3-Puzzle" style={boldFont} />
-            <MenuItem value={2} primaryText="8-Puzzle" style={boldFont} />
-            <MenuItem value={3} primaryText="15-Puzzle" style={boldFont} />
-            <MenuItem value={4} primaryText="24-Puzzle" style={boldFont} />
-            <MenuItem value={5} primaryText="35-Puzzle" style={boldFont} />
+          <DropDownMenu value={value} onChange={this.handleChange} style={boldFont} >
+            <MenuItem value={3} primaryText="3-Puzzle" style={boldFont} />
+            <MenuItem value={8} primaryText="8-Puzzle" style={boldFont} />
+            <MenuItem value={15} primaryText="15-Puzzle" style={boldFont} />
+            <MenuItem value={24} primaryText="24-Puzzle" style={boldFont} />
+            <MenuItem value={35} primaryText="35-Puzzle" style={boldFont} />
           </DropDownMenu>
         </ToolbarGroup>
-        <ToolbarTitle text={`Time: ${this.state.time}`} style={{fontWeight: 600, color: 'none'}} />
+        <ToolbarTitle text={`Time: ${time}`} style={{fontWeight: 600, color: 'none'}} />
         <ToolbarGroup>
           <ToolbarTitle text={`Moves: ${count}`} style={{fontWeight: 600, color: 'none'}} />
           <FontIcon className="muidocs-icon-custom-sort" />
@@ -86,7 +90,8 @@ class TopBar extends Component {
 
 TopBar.propTypes = {
   reset: PropTypes.func.isRequired,
-  count: PropTypes.number.isRequired
+  count: PropTypes.number.isRequired,
+  getN: PropTypes.func.isRequired
 }
 
 export default TopBar

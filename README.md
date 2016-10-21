@@ -16,6 +16,7 @@ See Live [Slider-Puzzle](https://slider-puzzle.herokuapp.com/)
 Slider-Puzzle uses a number of open source projects to work properly:
 
 * [React](https://facebook.github.io/react/docs/getting-started.html) - Open-source JavaScript library providing a view for data rendered as HTML
+* [react-motion](https://github.com/chenglou/react-motion) - A spring that solves your animation problems.
 * [Heroku](https://devcenter.heroku.com/categories/reference) - Create, deploy, and manage apps in the cloud
 * [Material UI](http://www.material-ui.com/) - Google's material design UI components built with React.
 

@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       board: [],
       count: 0,
-      isWin: false
+      isWin: false,
+      N: 15
     }
   }
 
@@ -24,11 +25,13 @@ class App extends Component {
 
   defaultState() {
     this.setState({
-      board: NewBoard(15),
+      board: NewBoard(this.state.N),
       count: 0,
       isWin: false
     })
   }
+
+  getN = (N) => this.setState({N})
 
   reset = () => this.defaultState()
 
@@ -46,10 +49,11 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.N)
     const {count, board, isWin} = this.state
     return (
       <div>
-        <TopBar reset={this.reset} count={count} isWin={isWin}/>
+        <TopBar reset={this.reset} count={count} isWin={isWin} getN={this.getN}/>
         <br/>
         {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
         <SnackBarMsg isWin={isWin}/>
