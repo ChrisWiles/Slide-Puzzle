@@ -29,9 +29,14 @@ class App extends Component {
       count: 0,
       isWin: false
     })
+     this.forceUpdate()
   }
 
-  getN = (N) => this.setState({N})
+
+  changeGame = (N) => {
+    this.setState({N})
+    this.reset()
+  }
 
   reset = () => this.defaultState()
 
@@ -49,11 +54,11 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.N)
     const {count, board, isWin} = this.state
+    console.log(this.state.N)
     return (
       <div>
-        <TopBar reset={this.reset} count={count} isWin={isWin} getN={this.getN}/>
+        <TopBar reset={this.reset} count={count} isWin={isWin} changeGame={this.changeGame}/>
         <br/>
         {board.board ? <BoardDisplay numRows={4} board={board.board}/> : null}
         <SnackBarMsg isWin={isWin}/>

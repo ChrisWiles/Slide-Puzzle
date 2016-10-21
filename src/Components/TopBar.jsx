@@ -49,21 +49,18 @@ class TopBar extends Component {
 
   handleChange = (event, index, value) => {
     this.setState({value})
-    this.props.getN(value)
+    this.props.changeGame(value)
   }
 
   render() {
     const {count} = this.props
     const {value, time} = this.state
+    const values = [3, 8, 15, 24, 35]
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
           <DropDownMenu value={value} onChange={this.handleChange} style={boldFont} >
-            <MenuItem value={3} primaryText="3-Puzzle" style={boldFont} />
-            <MenuItem value={8} primaryText="8-Puzzle" style={boldFont} />
-            <MenuItem value={15} primaryText="15-Puzzle" style={boldFont} />
-            <MenuItem value={24} primaryText="24-Puzzle" style={boldFont} />
-            <MenuItem value={35} primaryText="35-Puzzle" style={boldFont} />
+            {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={boldFont}/>)}
           </DropDownMenu>
         </ToolbarGroup>
         <ToolbarTitle text={`Time: ${time}`} style={{fontWeight: 600, color: 'none'}} />
@@ -91,7 +88,7 @@ class TopBar extends Component {
 TopBar.propTypes = {
   reset: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
-  getN: PropTypes.func.isRequired
+  changeGame: PropTypes.func.isRequired
 }
 
 export default TopBar
