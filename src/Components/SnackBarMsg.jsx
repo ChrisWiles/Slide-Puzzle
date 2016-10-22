@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Snackbar from 'material-ui/Snackbar'
+import {pinkA200} from 'material-ui/styles/colors'
 
 class SnackBarMsg extends Component {
 
@@ -24,7 +25,7 @@ class SnackBarMsg extends Component {
     const {open, msg, autoHideDuration} = this.state
     return (
         <Snackbar
-          contentStyle={{fontSize: "24px"}}
+          contentStyle={{fontSize: "24px", color: pinkA200, fontWeight: 700}}
           open={open}
           message={msg}
           autoHideDuration={autoHideDuration}

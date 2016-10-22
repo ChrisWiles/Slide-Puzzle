@@ -9,8 +9,10 @@ import DropDownMenu from 'material-ui/DropDownMenu'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 import StopWatch from '../helpers/StopWatch'
+import {grey900} from 'material-ui/styles/colors'
 
 const boldFont = {fontWeight: 600}
+const styleTitle = {color: 'none', "fontFamily":"'Lato', sans-serif"}
 const timer = new StopWatch()
 
 class TopBar extends Component {
@@ -59,16 +61,16 @@ class TopBar extends Component {
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
-          <DropDownMenu value={K} onChange={this.handleChange} style={boldFont} >
-            {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={boldFont}/>)}
+          <DropDownMenu iconStyle={{fill: grey900}} value={K} onChange={this.handleChange} style={styleTitle,boldFont} >
+            {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={styleTitle,boldFont}/>)}
           </DropDownMenu>
         </ToolbarGroup>
-        <ToolbarTitle text={`Time: ${time}`} style={{fontWeight: 600, color: 'none'}} />
+        <ToolbarTitle text={`Time: ${time}`} style={styleTitle} />
         <ToolbarGroup>
-          <ToolbarTitle text={`Moves: ${count}`} style={{fontWeight: 600, color: 'none'}} />
+          <ToolbarTitle text={`Moves: ${count}`} style={styleTitle} />
           <FontIcon className="muidocs-icon-custom-sort" />
           <ToolbarSeparator />
-          <RaisedButton label="New Game" secondary={true} onClick={this.handleNewGame}/>
+          <RaisedButton style={{"fontFamily":"'Lato', sans-serif"}} labelStyle={{fontWeight: 500}} label="New Game" secondary={true} onClick={this.handleNewGame}/>
           <IconMenu
             iconButtonElement={
               <IconButton touch={true}>
