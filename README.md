@@ -38,3 +38,5 @@ $ npm run
  - Mouse control
  - Add multi board sizes
  - Add Dark Theme
+
+ ![http://i.imgur.com/MX6DzQ1.gif](http://i.imgur.com/MX6DzQ1.gif)
