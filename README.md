@@ -6,9 +6,12 @@ The Slide-Puzzle is the generalised version of the [8-puzzle problem](https://en
 See Live [Slider-Puzzle](https://slider-puzzle.herokuapp.com/)
 
 ### User Stories
-- User slide tiles with arrow keys
+- User slides tiles with arrow keys
 - User wins when all tiles are in order
+- User can see winning time
 - User can reset board
+- User can play a variety of board sizes
+
 
 
 ### Tech
@@ -32,11 +35,11 @@ $ npm run
 ```
 
 ### Todos
- - Write Tests
- - Add Code Comments
+ - Write tests
+ - Add code comments
  - User score board
  - Mouse control
- - Add multi board sizes
- - Add Dark Theme
+ - Add dark theme
+ - Add move history and option to watch replays
 
  ![http://i.imgur.com/MX6DzQ1.gif](http://i.imgur.com/MX6DzQ1.gif)
