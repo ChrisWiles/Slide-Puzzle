@@ -37,9 +37,10 @@ $ npm run
 ### Todos
  - Write tests
  - Add code comments
- - User score board
+ - User score board (slideOut Menu)
  - Mouse control
  - Add dark theme
  - Add move history and option to watch replays
+ - Add React Motion
 
  ![http://i.imgur.com/MX6DzQ1.gif](http://i.imgur.com/MX6DzQ1.gif)

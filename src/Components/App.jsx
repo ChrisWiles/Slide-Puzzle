@@ -53,8 +53,7 @@ class App extends Component {
       <div>
         <TopBar count={count} isWin={isWin} changeGame={this.changeGame}/>
         <br/>
-        {board.board ? <BoardDisplay numRows={Math.round(Math.sqrt(N))} board={board.board}/> : null}
-        <SnackBarMsg isWin={isWin}/>
+        {board.board && <BoardDisplay numRows={Math.round(Math.sqrt(N))} board={board.board}/>}
       </div>
     )
   }
