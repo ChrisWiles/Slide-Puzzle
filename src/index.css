@@ -1,3 +1,7 @@
+#root {
+    height: 100vh;
+}
+
 body {
     margin: 0px;
     font-family: 'Lato', sans-serif !important;
