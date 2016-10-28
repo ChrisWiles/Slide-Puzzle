@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 
 import TopBar from './TopBar'
 import BoardDisplay from './BoardDisplay'
@@ -48,15 +48,21 @@ class App extends Component {
   }
 
   render() {
+    const {toggleTheme} = this.props
     const {count, board, isWin, N} = this.state
     return (
       <div>
-        <TopBar count={count} isWin={isWin} changeGame={this.changeGame}/>
+        <TopBar count={count} isWin={isWin} changeGame={this.changeGame} toggleTheme={toggleTheme}/>
         <br/>
         {board.board && <BoardDisplay numRows={Math.round(Math.sqrt(N))} board={board.board}/>}
+        <SnackBarMsg isWin={isWin}/>
       </div>
     )
   }
+}
+
+App.propTypes = {
+  toggleTheme: PropTypes.func.isRequired
 }
 
 export default App

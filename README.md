@@ -39,7 +39,6 @@ $ npm run
  - Add code comments
  - User score board (slideOut Menu)
  - Mouse control
- - Add dark theme
  - Add move history and option to watch replays
  - Add React Motion
 

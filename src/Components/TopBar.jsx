@@ -12,7 +12,7 @@ import StopWatch from '../helpers/StopWatch'
 import {grey900} from 'material-ui/styles/colors'
 
 const boldFont = {fontWeight: 600}
-const styleTitle = {color: 'none', "fontFamily":"'Lato', sans-serif"}
+const styleTitle = { "fontFamily":"'Lato', sans-serif", fontWeight: 600}
 const timer = new StopWatch()
 
 class TopBar extends Component {
@@ -34,14 +34,10 @@ class TopBar extends Component {
   componentWillReceiveProps({isWin}) {
     if(isWin) {
       timer.stop()
-      // winningTime(timer.time())
     }
   }
 
-
   tick = () => this.setState({time: timer.time()})
-
-
 
   handleNewGame = (event, K) => {
     timer.reset()
@@ -55,18 +51,20 @@ class TopBar extends Component {
   }
 
   render() {
-    const {count} = this.props
+    const {count, toggleTheme} = this.props
     const {K, time} = this.state
     const values = [3, 8, 15, 24, 35, 48]
     return (
       <Toolbar>
         <ToolbarGroup firstChild={true}>
-          <DropDownMenu iconStyle={{fill: grey900}} value={K} onChange={this.handleChange} style={styleTitle,boldFont} >
-            {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={styleTitle,boldFont}/>)}
+          <DropDownMenu  value={K} onChange={this.handleChange} style={{...styleTitle, ...boldFont}} >
+            {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={{...styleTitle, ...boldFont}}/>)}
           </DropDownMenu>
         </ToolbarGroup>
-        <ToolbarTitle text={`Time: ${time}`} style={styleTitle} />
+
+
         <ToolbarGroup>
+          <ToolbarTitle text={`Time: ${time}`} style={styleTitle} />
           <ToolbarTitle text={`Moves: ${count}`} style={styleTitle} />
           <FontIcon className="muidocs-icon-custom-sort" />
           <ToolbarSeparator />
@@ -80,6 +78,7 @@ class TopBar extends Component {
           >
             <MenuItem primaryText="Sign In" style={boldFont}/>
             <MenuItem primaryText="Top Scores" style={boldFont} />
+            <MenuItem primaryText="Toggle Theme" onTouchTap={toggleTheme} style={boldFont}/>
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>
@@ -89,7 +88,8 @@ class TopBar extends Component {
 
 TopBar.propTypes = {
   count: PropTypes.number.isRequired,
-  changeGame: PropTypes.func.isRequired
+  changeGame: PropTypes.func.isRequired,
+  toggleTheme: PropTypes.func.isRequired
 }
 
 export default TopBar
