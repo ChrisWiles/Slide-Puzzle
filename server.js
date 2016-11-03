@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
+import Model from './leaderBoardModel'
 const app = express()
-const Model = require('./ScoresModel')
 
 app.set('port', (process.env.PORT || 3001))
 console.log(process.env.PORT)
@@ -16,10 +16,11 @@ app.use((req, res, next) => {
 })
 
 
-app.post('/scores', (req, res) => {
-  Model.scores(req.body.string)
-    .then(data => res.send(data.scores))
-    .catch(err => console.log(err))
+app.post('/leaderBoard', (req, res) => {
+  console.log(req.body.leaderBoard)
+  // Model.leaderBoard(req.body.leaderBoard)
+  //   .then(data => res.send(data.leaderBoard))
+  //   .catch(err => console.log(err))
 })
 
 app.listen(app.get('port'), () => {

@@ -1,4 +1,4 @@
-let mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 /*
  * Mongoose by default sets the auto_reconnect option to true.
