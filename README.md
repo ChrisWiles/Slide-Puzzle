@@ -42,4 +42,4 @@ $ npm run
  - Add move history and option to watch replays
  - Add React Motion
 
- ![http://i.imgur.com/MX6DzQ1.gif](http://i.imgur.com/MX6DzQ1.gif)
+ ![gif](gif)
