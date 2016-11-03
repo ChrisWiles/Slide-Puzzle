@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const Model = require('./ScoresModel')
 
 app.set('port', (process.env.PORT || 3001))
 console.log(process.env.PORT)
@@ -15,18 +16,10 @@ app.use((req, res, next) => {
 })
 
 
-app.get('/scores', (req, res) => {
- //  const param = req.query.q
- //
- // if (!param) {
- //   res.json({
- //     error: 'Missing required parameter `q`',
- //   })
- //   return
- // }
- // graphql(schema, query)
- //   .then(data => res.send(data))
- //   .catch(err => console.log(err))
+app.post('/scores', (req, res) => {
+  Model.scores(req.body.string)
+    .then(data => res.send(data.scores))
+    .catch(err => console.log(err))
 })
 
 app.listen(app.get('port'), () => {
