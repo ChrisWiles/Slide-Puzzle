@@ -16,7 +16,7 @@ const timeHelp = (t, unit) => {
 
 const timeConvert = (time) => {
   let [h, m, s, ms] = time.split(':')
-  return timeHelp(h, 'Hour') + timeHelp(m, 'Minuite') + timeHelp(s, 'Second') + timeHelp(ms, 'Millisecond')
+  return timeHelp(h, 'Hour') + timeHelp(m, 'Minute') + timeHelp(s, 'Second') + timeHelp(ms, 'Millisecond')
 }
 
 const ListItems = ({leaderBoard}) => (
