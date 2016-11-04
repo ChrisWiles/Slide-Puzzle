@@ -34,8 +34,10 @@ const merge = (Mongo, Client) => {
 
     Client[key].forEach((score, i) => {
       scores.push(score)
-      if (Mongo[key][i].time !== score.time) {
-        scores.push(Mongo[key][i])
+      if(Mongo[key][i]) {
+        if (!Client[key].find(score => score.time === Mongo[key][i].time)) {
+          scores.push(Mongo[key][i])
+        }
       }
     })
     scores.sort((a, b) => cleanTime(a) - cleanTime(b)).splice(10)
