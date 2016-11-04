@@ -25,7 +25,22 @@ function writeDB(data, leaderBoard) {
   return data
 }
 
-function merge() {
+// returns new obj with leaderboards merged, sorted and top ten times for each N
+const merge = (Mongo, Client) => {
+  const cleanTime = (time) => time.time.split(':').join('')
+  const leaderBoard = {}
+  for (let key in Mongo) {
+    let scores = leaderBoard[key] = []
 
+    Client[key].forEach((score, i) => {
+      scores.push(score)
+      if (Mongo[key][i].time !== score.time) {
+        scores.push(Mongo[key][i])
+      }
+    })
+    scores.sort((a, b) => cleanTime(a) - cleanTime(b)).splice(10)
+  }
+  return leaderBoard
 }
+
 export default leaderBoard
