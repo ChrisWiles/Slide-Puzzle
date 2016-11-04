@@ -8,10 +8,11 @@ import MenuItem from 'material-ui/MenuItem'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
-import {grey900} from 'material-ui/styles/colors'
+
+import HighScoreDialog from './HighScoreDialog'
 
 import StopWatch from '../helpers/StopWatch'
-import isHighScore from '../helpers/helpers'
+import {isHighScore} from '../helpers/helpers'
 import defaultLeaderBoard from '../board/defaultLeaderBoard'
 
 const boldFont = {fontWeight: 600}
@@ -26,8 +27,9 @@ class TopBar extends Component {
 
     this.state = {
       K: 15,
-      time: ''
-      leaderBoard: defaultLeaderBoard
+      time: '',
+      leaderBoard: defaultLeaderBoard,
+      isDialogOpen: false
     }
   }
 
@@ -37,15 +39,27 @@ class TopBar extends Component {
   }
 
   componentWillReceiveProps({isWin}) {
+    const {leaderBoard, K, time} = this.state
     if(isWin) {
       timer.stop()
-      if(isHighScore(this.state.leaderBoard[`N${this.state.K}`])) {
-        // push Name and Time into leaderBoard
-        // merge into db
-        // push to db
+      if(isHighScore(leaderBoard[`N${K}`], time)) {
+        this.handleDialogOpen()
       }
     }
   }
+
+  getName = name => {
+    const {time, K, leaderBoard} = this.state
+    const highScore = {name: name, time}
+    // push Name and Time into leaderBoard
+    console.log(highScore)
+    leaderBoard[`N${K}`].push(highScore)
+    // merge into db
+    // push to db
+  }
+
+  handleDialogOpen = () => this.setState({isDialogOpen: true})
+  handleDialogClose = () => this.setState({isDialogOpen: false})
 
   tick = () => this.setState({time: timer.time()})
 
@@ -62,10 +76,11 @@ class TopBar extends Component {
 
   render() {
     const {count, toggleTheme} = this.props
-    const {K, time} = this.state
+    const {K, time, isDialogOpen} = this.state
     const values = [3, 8, 15, 24, 35, 48]
     return (
       <Toolbar>
+        <HighScoreDialog isOpen={isDialogOpen} getName={this.getName} handleClose={this.handleDialogClose}/>
         <ToolbarGroup firstChild={true}>
           <DropDownMenu  value={K} onChange={this.handleChange} style={{...styleTitle, ...boldFont}} >
             {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={{...styleTitle, ...boldFont}}/>)}
