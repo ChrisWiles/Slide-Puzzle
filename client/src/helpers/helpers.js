@@ -1,16 +1,10 @@
-// export const isHighScore = (scores, time) => time.split(':').join('') < state.N3.map(score => score.time.split(':').join('')).sort((a, b) => b - a)[0]
 export const isHighScore = (scores, time) => {
   const cleanTime = (time) => time.split(':').join('')
   let slowestTime = scores
     .map(score => cleanTime(score.time))
     .sort((a, b) => b - a)[0]
 
-    if(cleanTime(time) < slowestTime) {
-      return true
-    } else {
-      return false
-    }
-
+    return cleanTime(time) < slowestTime ? true : false
 }
 
 // merges two sorted arrays and returns inversion count in the arrays.
