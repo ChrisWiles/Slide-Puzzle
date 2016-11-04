@@ -1,10 +1,11 @@
 // export const isHighScore = (scores, time) => time.split(':').join('') < state.N3.map(score => score.time.split(':').join('')).sort((a, b) => b - a)[0]
 export const isHighScore = (scores, time) => {
+  const cleanTime = (time) => time.time.split(':').join('')
   let slowestTime = scores
-    .map(score => score.time.split(':').join(''))
+    .map(score => cleanTime(score.time))
     .sort((a, b) => b - a)[0]
 
-    if(time.split(':').join('') < slowestTime) {
+    if(cleanTime(time) < slowestTime) {
       return true
     } else {
       return false
