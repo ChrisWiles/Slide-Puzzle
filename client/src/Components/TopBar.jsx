@@ -8,12 +8,16 @@ import MenuItem from 'material-ui/MenuItem'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
-import StopWatch from '../helpers/StopWatch'
 import {grey900} from 'material-ui/styles/colors'
+
+import StopWatch from '../helpers/StopWatch'
+import isHighScore from '../helpers/helpers'
+import defaultLeaderBoard from '../board/defaultLeaderBoard'
 
 const boldFont = {fontWeight: 600}
 const styleTitle = { "fontFamily":"'Lato', sans-serif", fontWeight: 600}
 const timer = new StopWatch()
+
 
 class TopBar extends Component {
 
@@ -23,6 +27,7 @@ class TopBar extends Component {
     this.state = {
       K: 15,
       time: ''
+      leaderBoard: defaultLeaderBoard
     }
   }
 
@@ -34,6 +39,11 @@ class TopBar extends Component {
   componentWillReceiveProps({isWin}) {
     if(isWin) {
       timer.stop()
+      if(isHighScore(this.state.leaderBoard[`N${this.state.K}`])) {
+        // push Name and Time into leaderBoard
+        // merge into db
+        // push to db
+      }
     }
   }
 
