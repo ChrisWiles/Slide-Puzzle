@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 
 import HighScoreDialog from './HighScoreDialog'
+import LeaderBoard from './LeaderBoard'
 
 import StopWatch from '../helpers/StopWatch'
 import {isHighScore} from '../helpers/helpers'
@@ -29,7 +30,8 @@ class TopBar extends Component {
       K: 15,
       time: '',
       leaderBoard: defaultLeaderBoard,
-      isDialogOpen: false
+      isDialogOpen: false,
+      isLeaderBoardOpen: false
     }
   }
 
@@ -58,6 +60,9 @@ class TopBar extends Component {
     // push to db
   }
 
+  handleLeaderBoardOpen = () => this.setState({isLeaderBoardOpen: true})
+  handleLeaderBoardClose = () => this.setState({isLeaderBoardOpen: false})
+
   handleDialogOpen = () => this.setState({isDialogOpen: true})
   handleDialogClose = () => this.setState({isDialogOpen: false})
 
@@ -76,11 +81,12 @@ class TopBar extends Component {
 
   render() {
     const {count, toggleTheme} = this.props
-    const {K, time, isDialogOpen} = this.state
+    const {K, time, isDialogOpen, isLeaderBoardOpen, leaderBoard} = this.state
     const values = [3, 8, 15, 24, 35, 48]
     return (
       <Toolbar>
         <HighScoreDialog isOpen={isDialogOpen} getName={this.getName} handleClose={this.handleDialogClose}/>
+        <LeaderBoard  isOpen={isLeaderBoardOpen} handleClose={this.handleLeaderBoardClose} leaderBoard={leaderBoard[`N${K}`]}/>
         <ToolbarGroup firstChild={true}>
           <DropDownMenu  value={K} onChange={this.handleChange} style={{...styleTitle, ...boldFont}} >
             {values.map(val => <MenuItem value={val} key={val} primaryText={`${val}-Puzzle`} style={{...styleTitle, ...boldFont}}/>)}
@@ -102,7 +108,7 @@ class TopBar extends Component {
             }
           >
             <MenuItem primaryText="Sign In" style={boldFont}/>
-            <MenuItem primaryText="Top Scores" style={boldFont} />
+            <MenuItem primaryText="Top Scores" onTouchTap={this.handleLeaderBoardOpen} style={boldFont} />
             <MenuItem primaryText="Toggle Theme" onTouchTap={toggleTheme} style={boldFont}/>
           </IconMenu>
         </ToolbarGroup>
