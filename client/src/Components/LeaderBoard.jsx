@@ -5,7 +5,18 @@ import Divider from 'material-ui/Divider'
 
 const customContentStyle = {
   width: 'auto',
-  maxWidth: '300px',
+  maxWidth: '410px',
+}
+
+const timeHelp = (t, unit) => {
+  if(t === '00' || t === '000') return ''
+  if(t === '01' || t === '001') return `1 ${unit} `
+  return `${+t} ${unit}s `
+}
+
+const timeConvert = (time) => {
+  let [h, m, s, ms] = time.split(':')
+  return timeHelp(h, 'Hour') + timeHelp(m, 'Minuite') + timeHelp(s, 'Second') + timeHelp(ms, 'Millisecond')
 }
 
 const ListItems = ({leaderBoard}) => (
@@ -13,11 +24,12 @@ const ListItems = ({leaderBoard}) => (
     {
       leaderBoard.map((score, i) => {
         let {name, time} = score
+        name = 'chris'
         return (
           name && <div key={i}>
             <ListItem
               primaryText={name}
-              secondaryText={time}
+              secondaryText={timeConvert(time)}
             />
             <Divider/>
           </div>
