@@ -2,7 +2,7 @@
   "name": "Slider-Puzzle",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "http://slider-puzzle.herokuapp.com/",
   "devDependencies": {
     "react-scripts": "0.6.1"
   },
