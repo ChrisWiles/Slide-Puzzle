@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+
 import Dialog from 'material-ui/Dialog'
 import {List, ListItem} from 'material-ui/List'
 import Divider from 'material-ui/Divider'
@@ -24,7 +25,6 @@ const ListItems = ({leaderBoard}) => (
     {
       leaderBoard.map((score, i) => {
         let {name, time} = score
-        name = 'chris'
         return (
           name && <div key={i}>
             <ListItem

@@ -2,7 +2,7 @@ import db from './db'
 import mongoose from 'mongoose'
 import LeaderBoardSchema from './leaderBoardSchema'
 
-const leaderBoard = (leaderBoard) => {
+const leaderBoardModel = (leaderBoard) => {
   return LeaderBoardSchema.findOne({})
     .then(data => writeDB(data, leaderBoard))
     .catch(err => console.log(err))
@@ -45,4 +45,4 @@ const merge = (Mongo, Client) => {
   return leaderBoard
 }
 
-export default leaderBoard
+export default leaderBoardModel

@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react'
 
-import IconMenu from 'material-ui/IconMenu'
-import IconButton from 'material-ui/IconButton'
-import FontIcon from 'material-ui/FontIcon'
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
-import MenuItem from 'material-ui/MenuItem'
 import DropDownMenu from 'material-ui/DropDownMenu'
+import FontIcon from 'material-ui/FontIcon'
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
 
@@ -15,6 +15,7 @@ import LeaderBoard from './LeaderBoard'
 import StopWatch from '../helpers/StopWatch'
 import {isHighScore} from '../helpers/helpers'
 import defaultLeaderBoard from '../board/defaultLeaderBoard'
+import {syncLeaderBoard} from '../api'
 
 const boldFont = {fontWeight: 600}
 const styleTitle = { "fontFamily":"'Lato', sans-serif", fontWeight: 600}
@@ -36,6 +37,9 @@ class TopBar extends Component {
   }
 
   componentDidMount() {
+    syncLeaderBoard(this.state.leaderBoard)
+      .then(this.refreshLeaderBoard)
+      .catch(err => console.log('syncLeaderBoard', err))
     timer.start()
     setInterval(this.tick, 49)
   }
@@ -50,14 +54,17 @@ class TopBar extends Component {
     }
   }
 
-  getName = name => {
+  refreshLeaderBoard = (obj) => this.setState({leaderBoard: obj.data})
+
+  getName = (name) => {
     const {time, K, leaderBoard} = this.state
     const highScore = {name: name, time}
     // push Name and Time into leaderBoard
-    console.log(highScore)
+
     leaderBoard[`N${K}`].push(highScore)
-    // merge into db
-    // push to db
+    syncLeaderBoard(leaderBoard)
+      .then(this.refreshLeaderBoard)
+      .catch(err => console.log('syncLeaderBoard', err))
   }
 
   handleLeaderBoardOpen = () => this.setState({isLeaderBoardOpen: true})
@@ -105,8 +112,7 @@ class TopBar extends Component {
               <IconButton touch={true}>
                 <NavigationExpandMoreIcon />
               </IconButton>
-            }
-          >
+            }>
             <MenuItem primaryText="Sign In" style={boldFont}/>
             <MenuItem primaryText="Top Scores" onTouchTap={this.handleLeaderBoardOpen} style={boldFont} />
             <MenuItem primaryText="Toggle Theme" onTouchTap={toggleTheme} style={boldFont}/>
