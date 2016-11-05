@@ -13,10 +13,8 @@ class SnackBarMsg extends Component {
     }
   }
 
-  componentWillReceiveProps({isWin}) {
-    if(isWin) {
-      this.setState({open: true, msg: 'Congratulations You Won!'})
-    }
+  componentWillReceiveProps({isWin}) { // eslint-disable-next-line
+    isWin && this.setState({open: true, msg: 'Congratulations You Won!'})
   }
 
   handleRequestClose = () => this.setState({open: false})

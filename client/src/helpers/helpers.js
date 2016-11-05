@@ -1,13 +1,13 @@
-/**
- * This func merges two sorted arrays and returns inversion count in the arrays.
- *
- * @param  {array} arr   [ the original array ]
- * @param  {array} temp  [ a temprory array with same size as of the original ]
- * @param  {number} left  [ the starting point of the whole array ]
- * @param  {number} mid   [ the middle point of the whole array ]
- * @param  {number} right [ the ending index of the whole array ]
- * @return {number}       [ the total number of split inversions ]
- */
+export const isHighScore = (scores, time) => {
+  const cleanTime = (time) => time.split(':').join('')
+  let slowestTime = scores
+    .map(score => cleanTime(score.time))
+    .sort((a, b) => b - a)[0]
+
+    return cleanTime(time) < slowestTime ? true : false
+}
+
+// merges two sorted arrays and returns inversion count in the arrays.
 const merge = (arr, temp, left, mid, right) => {
   // start index for left subarray
   let i = left
@@ -51,15 +51,7 @@ const merge = (arr, temp, left, mid, right) => {
   return invCount
 }
 
-/**
- * The recursive routine that calls itself on left part then right part and the calls merge on both.
- *
- * @param  {array}  arr   [ the original array ]
- * @param  {array}  temp  [ a temprory array with same size as of the original ]
- * @param  {number} left  [ the starting point of the whole array ]
- * @param  {number} right [ the ending point of the whole array ]
- * @return {number}       [ the total number of split inversions ]
- */
+// The recursive routine that calls itself on left part then right part and the calls merge on both.
 const mergeAndCount = (arr, temp, left, right) => {
   let mid = 0
   let invCount = 0
@@ -77,12 +69,7 @@ const mergeAndCount = (arr, temp, left, right) => {
   return invCount
 }
 
-/**
- * This method takes in an array of objects/numbers and returns the number of inversions in it.
- *
- * @param  {array}  array [ the original array ]
- * @return {number}       [ total number of inversions in the original array ]
- */
+// takes in an array of objects/numbers and returns the number of inversions in it.
 export const inversionCount = (array) => {
   if (!array || array.length === 0 || array.length === 1) {
     return 0
@@ -90,11 +77,8 @@ export const inversionCount = (array) => {
   return mergeAndCount(array, new Array(array.length), 0, array.length - 1)
 }
 
-/**
- * A linear time array randomizer
- * @param  {array} array [ the original array ]
- * @return {array}       [ the shuffled array ]
- */
+
+// A linear time array randomizer
 export const shuffle = (array) => {
   let m = array.length
   let t

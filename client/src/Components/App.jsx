@@ -40,11 +40,8 @@ class App extends Component {
     const moved = board.moveOnDirection(e.keyCode - 37)
 
     this.setState({count: count + (moved ? 1 : 0)})
-
-    if (board.isGoal()) {
-      this.setState({isWin: true})
-    }
-    this.setState({isWin: false})
+    // eslint-disable-next-line
+    board.isGoal() && this.setState({isWin: true})
   }
 
   render() {
