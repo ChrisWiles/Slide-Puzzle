@@ -37,10 +37,14 @@ class TopBar extends Component {
   }
 
   componentDidMount() {
-    syncLeaderBoard(this.state.leaderBoard)
-      .then(this.refreshLeaderBoard)
-      .catch(err => console.log('syncLeaderBoard', err))
+    // Sync with Mongo DB on load
+    this.syncDB(this.state.leaderBoard)
+
+    // Sync with Mongo DB every 30secs
+    setInterval(this.syncDB, 30000)
+
     timer.start()
+    // Update timer UI 49 ms
     setInterval(this.tick, 49)
   }
 
@@ -54,17 +58,20 @@ class TopBar extends Component {
     }
   }
 
+  syncDB = (leaderBoard) => {
+    syncLeaderBoard(leaderBoard || this.state.leaderBoard)
+      .then(this.refreshLeaderBoard)
+      .catch(err => console.log('syncLeaderBoard', err))
+  }
+
   refreshLeaderBoard = (obj) => this.setState({leaderBoard: obj.data})
 
   getName = (name) => {
     const {time, K, leaderBoard} = this.state
     const highScore = {name: name, time}
-    // push Name and Time into leaderBoard
 
     leaderBoard[`N${K}`].push(highScore)
-    syncLeaderBoard(leaderBoard)
-      .then(this.refreshLeaderBoard)
-      .catch(err => console.log('syncLeaderBoard', err))
+    this.syncDB(leaderBoard)
   }
 
   handleLeaderBoardOpen = () => this.setState({isLeaderBoardOpen: true})
