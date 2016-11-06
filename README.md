@@ -11,8 +11,9 @@ See Live [Slider-Puzzle](https://slider-puzzle.herokuapp.com/)
 - User can see winning time
 - User can reset board
 - User can play a variety of board sizes
-
-
+- User can see top scores
+- User can set a top score
+- User can submit their top score
 
 ### Tech
 
@@ -37,7 +38,7 @@ $ npm run
 ### Todos
  - Write tests
  - Add code comments
- - User score board (slideOut Menu)
+
  - Mouse control
  - Add move history and option to watch replays
  - Add React Motion
