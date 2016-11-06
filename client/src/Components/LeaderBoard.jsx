@@ -50,7 +50,7 @@ const LeaderBoard = ({handleClose, isOpen, leaderBoard}) => (
     onRequestClose={handleClose}
     open={isOpen}>
     <List>
-      <ListItems leaderBoard={leaderBoard}/>
+      <ListItems leaderBoard={leaderBoard.slice(0, 5)}/>
     </List>
   </Dialog>
 )
