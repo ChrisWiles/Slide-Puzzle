@@ -32,11 +32,13 @@ class App extends Component {
   changeGame = (N) => this.defaultState(N)
 
   handleKeyDown = (e) => {
-    const {board, count} = this.state
+    const {board} = this.state
 
     const moved = board.moveOnDirection(e.keyCode - 37)
 
-    this.setState({count: count + (moved ? 1 : 0)})
+    this.setState(prevState => {
+      return {count: prevState.count + (moved ? 1 : 0)}
+    })
     // eslint-disable-next-line
     board.isGoal() && this.setState({isWin: true})
   }
