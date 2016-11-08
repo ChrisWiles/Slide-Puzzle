@@ -4,13 +4,10 @@ import {pinkA200} from 'material-ui/styles/colors'
 
 class SnackBarMsg extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      autoHideDuration: 60000,
-      open: true,
-      msg: 'Use arrow keys to move'
-    }
+  state = {
+    autoHideDuration: 60000,
+    open: true,
+    msg: 'Use arrow keys to move'
   }
 
   componentWillReceiveProps({isWin}) { // eslint-disable-next-line

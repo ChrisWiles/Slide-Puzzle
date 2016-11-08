@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
 class HighScoreDialog extends Component {
+  
   state = {
     value: ''
   }

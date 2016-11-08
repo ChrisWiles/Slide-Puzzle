@@ -7,15 +7,12 @@ import SnackBarMsg from './SnackBarMsg'
 import NewBoard from '../board/NewBoard'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
 
-    this.state = {
-      board: [],
-      count: 0,
-      isWin: false,
-      N: 15
-    }
+  state = {
+    board: [],
+    count: 0,
+    isWin: false,
+    N: 15
   }
 
   componentDidMount() {

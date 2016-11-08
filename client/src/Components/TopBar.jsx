@@ -24,16 +24,12 @@ const timer = new StopWatch()
 
 class TopBar extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      K: 15,
-      time: '',
-      leaderBoard: defaultLeaderBoard,
-      isDialogOpen: false,
-      isLeaderBoardOpen: false
-    }
+  state = {
+    K: 15,
+    time: '',
+    leaderBoard: defaultLeaderBoard,
+    isDialogOpen: false,
+    isLeaderBoardOpen: false
   }
 
   componentDidMount() {
