@@ -14,7 +14,7 @@ injectTapEventPlugin()
 
 class Main extends Component {
   state = {
-    theme: light
+    theme: dark
   }
 
   toggleTheme = () => {
