@@ -31,8 +31,9 @@ Requires [Node.js](https://nodejs.org/) v6+ to run.
 Install the dependencies and devDependencies and start the server.
 
 ```sh
-$ npm install
-$ npm run
+  SET MONGOLAB_URI=mongodb://User:password@ds147995.mlab.com:47995/melodymap
+  npm install
+  npm run
 ```
 
 ### Todos
