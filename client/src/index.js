@@ -17,6 +17,7 @@ class Main extends Component {
     theme: dark
   }
 
+
   toggleTheme = () => {
     const {theme} = this.state
 
