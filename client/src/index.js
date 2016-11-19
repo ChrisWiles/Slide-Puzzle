@@ -22,7 +22,7 @@ class Main extends Component {
 
     if(theme === light) {
       this.setState({theme: dark})
-      document.getElementById("root").style.backgroundColor = '#424242'
+      document.getElementById("root").style.backgroundColor = '#181818'
     } else {
       this.setState({theme: light})
       document.getElementById("root").style.backgroundColor = '#FAFAFA'

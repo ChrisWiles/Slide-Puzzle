@@ -1,46 +1,45 @@
-/* eslint-disable */
-import {fade} from 'material-ui/utils/colorManipulator'
-// http://www.material-ui.com/#/customization/colors
-
-import {
-  purple500,
-  purple600,
-  purple800,
-  purple900,
-  lightBlueA200,
-  blueGrey50,
-  blueGrey800,
-  blueGrey900,
-  grey100,
-  grey300,
-  grey400,
-  grey500,
-  grey900,
-  white,
-  pinkA200,
-  darkBlack,
-  fullBlack
-} from 'material-ui/styles/colors'
-
-export default {
-  fontFamily : 'Roboto, sans-serif',
-  palette : {
-    primary1Color: white,
-    primary2Color: white,
-    primary3Color: white,
-    primary4Color: white,
-    footerColor: white,
-    accent1Color: purple500,
-    accent2Color: darkBlack,
-    accent3Color: darkBlack,
-    backgroundColor: darkBlack,
-    textColor: white,
-    alternateTextColor: white,
-    canvasColor: darkBlack,
-    borderColor: grey300,
-    disabledColor: fade(darkBlack, 0.3),
-    pickerHeaderColor: purple500,
-    clockCircleColor: fade(darkBlack, 0.07),
-    shadowColor: white
-  }
+export default
+{
+    "spacing": {
+        "iconSize": 24,
+        "desktopGutter": 24,
+        "desktopGutterMore": 32,
+        "desktopGutterLess": 16,
+        "desktopGutterMini": 8,
+        "desktopKeylineIncrement": 64,
+        "desktopDropDownMenuItemHeight": 32,
+        "desktopDropDownMenuFontSize": 15,
+        "desktopDrawerMenuItemHeight": 48,
+        "desktopSubheaderHeight": 48,
+        "desktopToolbarHeight": 56
+    },
+    "fontFamily": "Roboto, sans-serif",
+    "palette": {
+        "primary1Color": "#0097a7",
+        "primary2Color": "#0097a7",
+        "primary3Color": "#757575",
+        "accent1Color": "#ff4081",
+        "accent2Color": "#f50057",
+        "accent3Color": "#ff80ab",
+        "textColor": "#CCCCCC",
+        "secondaryTextColor": "rgba(255, 255, 255, 0.7)",
+        "alternateTextColor": "#202020",
+        "canvasColor": "#202020",
+        "borderColor": "rgba(255, 255, 255, 0.3)",
+        "disabledColor": "rgba(255, 255, 255, 0.3)",
+        "pickerHeaderColor": "rgba(255, 255, 255, 0.12)",
+        "clockCircleColor": "rgba(255, 255, 255, 0.12)",
+        "shadowColor": "rgba(0, 0, 0, 1)"
+    },
+    "themeName": "Dark Theme",
+    "listItem": {
+        "secondaryTextColor": "#CCCCCC"
+    },
+    "toolbar": {
+        "backgroundColor": "#202020"
+    },
+    "snackbar": {
+        "textColor": "#ff4081",
+        "backgroundColor": "rgba(0, 0, 0, 0.54)"
+    }
 }
