@@ -39,7 +39,6 @@ Install the dependencies and devDependencies and start the server.
 ### Todos
  - Write tests
  - Add code comments
-
  - Mouse control
  - Add move history and option to watch replays
  - Add React Motion
